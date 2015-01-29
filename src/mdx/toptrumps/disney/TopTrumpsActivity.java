@@ -2,9 +2,12 @@ package mdx.toptrumps.disney;
 
 import java.util.LinkedList;
 
+import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.disney.model.CardModel;
 import mdx.toptrumps.disney.service.GameService;
+import mdx.toptrumps.disney.service.GameServiceImpl;
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,51 +29,22 @@ import android.widget.TextView;
  * 
  * @version version 1.0 28 Jan 2015
  */
-public class TopTrumpsActivity extends ActionBarActivity {
+public class TopTrumpsActivity extends Activity {
+	
+	public static Activity activity;
 	
 	/** @description Reference to the gameService */
 	private GameService gameService;
 	
 	/** @description cards list */
-	private LinkedList<CardModel> cards;
-	
-	/** @description card image */
-	private ImageView image;
-	
-	/** @description character name */
-	private TextView name;
-	
-	/** @description label weight */
-	private TextView weightLabel;
-	
-	/** @description label length */
-	private TextView lengthLabel;
-	
-	
-	/** @description magic label */
-	private TextView magicLabel;
-	
-	/** @description strength label */
-	private TextView strengthLabel;
-	
-	/** @description Intelligence label */
-	private TextView intelLabel;
-	
-	/** @description Happiness label */
-	private TextView happiLabel;
-	
-	/** @description Bravery label */
-	private TextView braveLabel;
-	
-	/** @description First On Film label */
-	private TextView firstLabel;
-	
-	/** @description Reference to the card */
-	private CardModel card;
+	public LinkedList<CardModel> cards;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		TopTrumpsActivity.activity = this;
+		
 		setContentView(R.layout.activity_top_trumps);
 	}
 

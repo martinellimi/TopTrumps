@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import mdx.toptrumps.common.CommonSystem;
+import mdx.toptrumps.disney.TopTrumpsActivity;
 import mdx.toptrumps.disney.model.Attribute;
 import mdx.toptrumps.disney.model.CardAttributeType;
 import mdx.toptrumps.disney.model.CardModel;
@@ -43,8 +45,8 @@ public class TextFileAccess {
 	 * will be create.
 	 */
 	private TextFileAccess(Activity mainActivity) {
-		this.mainActivity = mainActivity;
-		this.assetManager = mainActivity.getAssets();
+		this.mainActivity = TopTrumpsActivity.activity;
+		this.assetManager = this.mainActivity.getAssets();
 	}
 	
 	

@@ -5,6 +5,7 @@ package mdx.toptrumps.disney.service;
 
 import java.util.List;
 
+import android.app.Activity;
 import mdx.toptrumps.disney.model.CardAttributeType;
 import mdx.toptrumps.disney.model.CardModel;
 import mdx.toptrumps.disney.model.UserModel;
@@ -28,6 +29,10 @@ public class GameServiceImpl implements GameService {
 	
 	/** @description List that contains the players for the game. */
 	private List<UserModel> users;
+	
+	public GameServiceImpl(Activity activity) {
+		cardService = new CardServiceImpl(activity);
+	}
 	
 	/**
 	 * @description distributeCardsRandom
