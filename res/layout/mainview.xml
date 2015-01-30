@@ -81,7 +81,7 @@
         </FrameLayout>
 
         <Button
-            android:id="@+id/playGame"
+            android:id="@+id/userheight"
             style="android:buttonStyle"
             android:layout_width="170dp"
             android:layout_height="16dp"
@@ -89,12 +89,12 @@
             android:layout_marginTop="3dp"
             android:background="#FF0000"
             android:padding="0dp"
-            android:text="Magic                                                 2"
+            android:text="Height (cm)                                           2"
             android:textColor="#000000"
             android:textSize="9dp" />
 
         <Button
-            android:id="@+id/Button01"
+            android:id="@+id/userweight"
             style="android:buttonStyle"
             android:layout_width="170dp"
             android:layout_height="16dp"
@@ -102,12 +102,12 @@
             android:layout_marginTop="2dp"
             android:background="#FF0000"
             android:padding="0dp"
-            android:text="Magic                                                 2"
+            android:text="Weight (Kg)                                           2"
             android:textColor="#000000"
             android:textSize="9dp" />
 
         <Button
-            android:id="@+id/Button02"
+            android:id="@+id/userlength"
             style="android:buttonStyle"
             android:layout_width="170dp"
             android:layout_height="16dp"
@@ -115,12 +115,12 @@
             android:layout_marginTop="2dp"
             android:background="#FF0000"
             android:padding="0dp"
-            android:text="Magic                                                 2"
+            android:text="Length (cm)                                            2"
             android:textColor="#000000"
             android:textSize="9dp" />
 
         <Button
-            android:id="@+id/Button03"
+            android:id="@+id/userspeed"
             style="android:buttonStyle"
             android:layout_width="170dp"
             android:layout_height="16dp"
@@ -128,12 +128,12 @@
             android:layout_marginTop="2dp"
             android:background="#FF0000"
             android:padding="0dp"
-            android:text="Magic                                                 2"
+            android:text="Speed (Km/H)                                            2"
             android:textColor="#000000"
             android:textSize="9dp" />
 
         <Button
-            android:id="@+id/Button04"
+            android:id="@+id/userkillerinstinct"
             style="android:buttonStyle"
             android:layout_width="170dp"
             android:layout_height="16dp"
@@ -141,7 +141,7 @@
             android:layout_marginTop="2dp"
             android:background="#FF0000"
             android:padding="0dp"
-            android:text="Magic                                                 2"
+            android:text="Killer Instinct                                       2"
             android:textColor="#000000"
             android:textSize="9dp" />
 
