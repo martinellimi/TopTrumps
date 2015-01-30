@@ -1,11 +1,11 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.service
  */
-package mdx.toptrumps.disney.service;
+package mdx.toptrumps.service;
 
 import java.util.List;
 
-import mdx.toptrumps.disney.model.UserModel;
+import mdx.toptrumps.model.UserModel;
 
 /**
  * @author martinellimi

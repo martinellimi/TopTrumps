@@ -1,7 +1,7 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.model
  */
-package mdx.toptrumps.disney.model;
+package mdx.toptrumps.model;
 
 /**
  * @author martinellimi
@@ -16,6 +16,11 @@ public class Attribute {
 	private CardAttributeType attribute;
 	private  Integer value;
 	
+	public Attribute(Integer value, CardAttributeType attribute) {
+		this.attribute = attribute;
+		this.value = value;
+	}
+
 	/** @return the attribute */
 	public CardAttributeType getAttribute() {
 		return attribute;

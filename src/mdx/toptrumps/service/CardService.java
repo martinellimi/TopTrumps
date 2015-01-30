@@ -1,11 +1,11 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.service
  */
-package mdx.toptrumps.disney.service;
+package mdx.toptrumps.service;
 
 import java.util.List;
 
-import mdx.toptrumps.disney.model.CardModel;
+import mdx.toptrumps.model.CardAnimalModel;
 
 /**
  * @author martinellimi
@@ -24,5 +24,5 @@ public interface CardService {
 	 * @param 
 	 * @return List<CardModel>
 	 */
-	public List<CardModel> getCards();
+	public List<CardAnimalModel> getCards();
 }

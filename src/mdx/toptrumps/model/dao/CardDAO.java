@@ -1,11 +1,12 @@
 /**
  * 
  */
-package mdx.toptrumps.disney.model.dao;
+package mdx.toptrumps.model.dao;
 
 import java.util.List;
 
-import mdx.toptrumps.disney.model.CardModel;
+import mdx.toptrumps.model.AnimalAttribute;
+import mdx.toptrumps.model.CardAnimalModel;
 
 /**
  * @author martinellimi
@@ -20,5 +21,5 @@ public interface CardDAO {
 	 * 
 	 * @return List<CardModel>
 	 */
-	public List<CardModel> getCards();
+	public List<CardAnimalModel> getCards();
 }

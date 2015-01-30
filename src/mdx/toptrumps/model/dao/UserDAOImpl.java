@@ -1,11 +1,11 @@
 /**
  * 
  */
-package mdx.toptrumps.disney.model.dao;
+package mdx.toptrumps.model.dao;
 
 import java.util.List;
 
-import mdx.toptrumps.disney.model.UserModel;
+import mdx.toptrumps.model.UserModel;
 
 /**
  * @author martinellimi

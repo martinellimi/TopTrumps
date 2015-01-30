@@ -1,18 +1,14 @@
-package mdx.toptrumps.disney;
+package mdx.toptrumps;
 
 import java.util.LinkedList;
 
-import mdx.toptrumps.common.CommonSystem;
-import mdx.toptrumps.disney.model.CardModel;
-import mdx.toptrumps.disney.service.GameService;
-import mdx.toptrumps.disney.service.GameServiceImpl;
-import android.support.v7.app.ActionBarActivity;
+import mdx.toptrumps.model.CardAnimalModel;
+import mdx.toptrumps.service.GameService;
+import mdx.toptrumps.service.GameServiceImpl;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 
 /**
@@ -37,7 +33,7 @@ public class TopTrumpsActivity extends Activity {
 	private GameService gameService;
 	
 	/** @description cards list */
-	public LinkedList<CardModel> cards;
+	public LinkedList<CardAnimalModel> cards;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +42,10 @@ public class TopTrumpsActivity extends Activity {
 		TopTrumpsActivity.activity = this;
 		
 		setContentView(R.layout.activity_top_trumps);
+		
+		gameService = new GameServiceImpl(activity);
+		
+		gameService.startGame();
 	}
 
 	@Override

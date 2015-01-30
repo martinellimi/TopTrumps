@@ -1,7 +1,7 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.model
  */
-package mdx.toptrumps.disney.model;
+package mdx.toptrumps.model;
 
 /**
  * @author martinellimi

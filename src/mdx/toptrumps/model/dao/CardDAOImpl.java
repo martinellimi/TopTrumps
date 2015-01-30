@@ -1,14 +1,14 @@
 /**
  * 
  */
-package mdx.toptrumps.disney.model.dao;
+package mdx.toptrumps.model.dao;
 
 
 
 import java.util.List;
 
+import mdx.toptrumps.model.CardAnimalModel;
 import android.app.Activity;
-import mdx.toptrumps.disney.model.CardModel;
 
 /**
  * @author martinellimi
@@ -43,7 +43,7 @@ public class CardDAOImpl implements CardDAO {
 	 * @return List<CardModel>
 	 * @see CardDAO#getCards()
 	 */
-	public List<CardModel> getCards() {
+	public List<CardAnimalModel> getCards() {
 		return dataAccess.getCards();
 	}
 	

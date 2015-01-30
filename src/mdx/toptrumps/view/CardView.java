@@ -1,9 +1,9 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.view
  */
-package mdx.toptrumps.disney.view;
+package mdx.toptrumps.view;
 
-import mdx.toptrumps.disney.model.CardModel;
+import mdx.toptrumps.model.CardAnimalModel;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +48,6 @@ public class CardView {
 	public TextView firstLabel;
 	
 	/** @description Reference to the card */
-	public CardModel card;
+	public CardAnimalModel card;
 	
 }

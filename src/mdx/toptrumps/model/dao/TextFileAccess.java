@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mdx.toptrumps.disney.model.dao;
+package mdx.toptrumps.model.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import mdx.toptrumps.TopTrumpsActivity;
 import mdx.toptrumps.common.CommonSystem;
-import mdx.toptrumps.disney.TopTrumpsActivity;
-import mdx.toptrumps.disney.model.Attribute;
-import mdx.toptrumps.disney.model.CardAttributeType;
-import mdx.toptrumps.disney.model.CardModel;
+import mdx.toptrumps.model.AnimalAttribute;
+import mdx.toptrumps.model.Attribute;
+import mdx.toptrumps.model.CardAnimalAttribute;
+import mdx.toptrumps.model.CardAnimalModel;
+import mdx.toptrumps.model.CardAttributeType;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -71,7 +73,7 @@ public class TextFileAccess {
 	 * 
 	 * @return List<CardModel>
 	 */
-	public List<CardModel> getCards() {
+	public List<CardAnimalModel> getCards() {
 		return this.getData();
 	}
 	
@@ -83,15 +85,15 @@ public class TextFileAccess {
 	 * 
 	 * @return List<CardModel>
 	 */
-	private List<CardModel> getData() {
-		List<CardModel> data = new ArrayList<CardModel>();
+	private List<CardAnimalModel> getData() {
+		List<CardAnimalModel> data = new ArrayList<CardAnimalModel>();
 		
 		InputStream stream = null;
 		
 		try {
 			
 			//TODO: Create cards.db
-			stream = assetManager.open("");
+			stream = assetManager.open("database/animal.db");
 			
 		} catch (IOException e) {
 			System.out.println("Error while opening the file");
@@ -102,6 +104,8 @@ public class TextFileAccess {
 			
 			sc.useDelimiter("\n");
 			
+			Integer id = 0;
+			
 			while(sc.hasNext()) {
 				String line = sc.next().trim();
 				
@@ -110,18 +114,21 @@ public class TextFileAccess {
 				String name = bits[0];                             					 // name 
 				
 				String img = bits[1];                              					 // image file name
-				Attribute happiness = new Attribute(
-						CardAttributeType.Happiness, Integer.parseInt(bits[2]));     //happiness attribute
-				Attribute magic = new Attribute(
-						CardAttributeType.Magic, Integer.parseInt(bits[3]));         // magic attribute
-				Attribute strength = new Attribute(
-						CardAttributeType.Strength, Integer.parseInt(bits[4]));      // strength attribute
-				Attribute intelligence = new Attribute(
-						CardAttributeType.Intelligence, Integer.parseInt(bits[5]));  // intelligence attribute
-				Attribute bravery = new Attribute(
-						CardAttributeType.Bravery, Integer.parseInt(bits[6]));       // bravery attribute
-				Attribute firstOnFilm = new Attribute(
-						CardAttributeType.FirstOnFilm, Integer.parseInt(bits[7]));   // first on film attribute
+				
+				Integer weight = Integer.parseInt(bits[2]);                          // image weight name
+				
+				Integer length = Integer.parseInt(bits[3]);                          // image length name
+				
+				AnimalAttribute animalHeight = new AnimalAttribute(
+						CardAnimalAttribute.Height, Double.parseDouble(bits[4]));     			//height attribute
+				AnimalAttribute animalWeight = new AnimalAttribute(
+						CardAnimalAttribute.Weight, Double.parseDouble(bits[5]));         		// weight attribute
+				AnimalAttribute animalLength = new AnimalAttribute(
+						CardAnimalAttribute.Length, Double.parseDouble(bits[6]));      			// length attribute
+				AnimalAttribute speed = new AnimalAttribute(
+						CardAnimalAttribute.Speed, Double.parseDouble(bits[7]));  				// speed attribute
+				AnimalAttribute killer = new AnimalAttribute(
+						CardAnimalAttribute.KillerInstinct, Double.parseDouble(bits[8]));       // killer Instinct attribute
 				
 				InputStream imageStream = null;
 				
@@ -134,7 +141,9 @@ public class TextFileAccess {
 				
 				Bitmap image = BitmapFactory.decodeStream(imageStream);
 				
-				CardModel card = new CardModel(image, name, happiness, magic, strength, intelligence, bravery, firstOnFilm);
+				id++;
+				
+				CardAnimalModel card = new CardAnimalModel(id, image, name, weight, length, animalHeight, animalWeight, animalLength, speed, killer);
 				
 				data.add(card);
 			}

@@ -1,13 +1,14 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.service
  */
-package mdx.toptrumps.disney.service;
+package mdx.toptrumps.service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import mdx.toptrumps.disney.model.CardAttributeType;
-import mdx.toptrumps.disney.model.CardModel;
-import mdx.toptrumps.disney.model.UserModel;
+import mdx.toptrumps.model.CardAnimalAttribute;
+import mdx.toptrumps.model.CardAnimalModel;
+import mdx.toptrumps.model.UserModel;
 
 /**
  * @author martinellimi
@@ -26,7 +27,7 @@ public interface GameService {
 	 * 
 	 * @return List<CardModel>
 	 */
-	public List<CardModel> startGame();
+	public List<CardAnimalModel> startGame();
 	
 	
 	/**
@@ -46,5 +47,5 @@ public interface GameService {
 	 * 
 	 * @return CardAttributeType
 	 */
-	public CardAttributeType computerMode();
+	public CardAnimalAttribute computerMove(CardAnimalModel card) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 }

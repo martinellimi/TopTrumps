@@ -1,14 +1,14 @@
 /**
  * TopTrumps - mdx.toptrumps.disney.service
  */
-package mdx.toptrumps.disney.service;
+package mdx.toptrumps.service;
 
 import java.util.List;
 
 import android.app.Activity;
-import mdx.toptrumps.disney.model.CardModel;
-import mdx.toptrumps.disney.model.dao.CardDAO;
-import mdx.toptrumps.disney.model.dao.CardDAOImpl;
+import mdx.toptrumps.model.CardAnimalModel;
+import mdx.toptrumps.model.dao.CardDAO;
+import mdx.toptrumps.model.dao.CardDAOImpl;
 
 /**
  * @author martinellimi
@@ -41,8 +41,8 @@ public class CardServiceImpl implements CardService {
 	 * @see CardService#getCards()
 	 * TODO: implement this method.
 	 */
-	public List<CardModel> getCards() {
-		return null;
+	public List<CardAnimalModel> getCards() {
+		return cardDAO.getCards();
 	}
 
 }
