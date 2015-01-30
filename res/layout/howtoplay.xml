@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF0000"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="How to Play"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textHowPlay"
+            android:layout_width="502dp"
+            android:layout_height="wrap_content"
+            android:text="Top Trumps is a simple game. Each player has to get all of his opponent&apos;s cards to win the game. So how do you win your opponents cards? Easy!
+Each Top Trumps card has a number of stats on it that enable you compare that card with all of the others in the deck.
+Your job is to select a stat on your card that you think is relatively strong and would give you the best chance of beating your opponent&apos;s card.
+The problem is you don&apos;t know what card your opponent has, so even if you choose the strongest available stat, it&apos;s no guarantee that you&apos;ll win that hand. 
+The trick is to familiarise yourself with the cards in the deck, the more stats you learn, the more chance you will choose the winning stat! "
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+</RelativeLayout>
