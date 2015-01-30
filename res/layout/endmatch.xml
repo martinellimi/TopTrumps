@@ -31,6 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
         android:contentDescription="110dp"
         android:orientation="vertical" >
 
