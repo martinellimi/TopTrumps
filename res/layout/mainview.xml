@@ -62,7 +62,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/cardName"
+            android:id="@+id/cardNameUser"
             android:layout_width="146dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
