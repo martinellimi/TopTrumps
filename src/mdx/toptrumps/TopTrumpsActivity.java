@@ -6,9 +6,13 @@ import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.service.GameService;
 import mdx.toptrumps.service.GameServiceImpl;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 /**
@@ -41,25 +45,45 @@ public class TopTrumpsActivity extends Activity {
 		
 		TopTrumpsActivity.activity = this;
 		
-		setContentView(R.layout.activity_top_trumps);
+		setContentView(R.layout.intropage);
 		
 		gameService = new GameServiceImpl(activity);
 		
 		gameService.startGame();
+		
+		Button btnPlayGame = (Button) findViewById(R.id.playGame);
+		
+		btnPlayGame.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				setContentView(R.layout.selectplayers);
+				
+				Button btnStart = (Button) findViewById(R.id.playGame);
+				btnStart.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Intent start = new Intent(TopTrumpsActivity.this, GameActivity.class);
+						startActivity(start);
+					}
+				});
+			}
+		});
+		
+		Button btnHowPlay = (Button) findViewById(R.id.howPlay);
+		
+		btnHowPlay.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				setContentView(R.layout.howtoplay);
+			}
+		});
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.top_trumps, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;

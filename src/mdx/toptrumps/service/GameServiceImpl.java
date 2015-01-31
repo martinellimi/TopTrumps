@@ -6,7 +6,11 @@ package mdx.toptrumps.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +45,7 @@ public class GameServiceImpl implements GameService {
 	
 	public GameServiceImpl(Activity activity) {
 		cardService = new CardServiceImpl(activity);
+		userService = new UserServiceImpl();
 	}
 	
 	/**
@@ -50,10 +55,32 @@ public class GameServiceImpl implements GameService {
 	 * @return List<CardModel>
 	 * TODO: Implement this method
 	 */
-	private List<CardAnimalModel> distributeCardsRandom() {
-		return null;
+	private void distributeCardsRandom() {
+		List<CardAnimalModel> shuffledList = CommonSystem.getInstance().getCards();
+		Collections.shuffle(shuffledList);
+		
+		CommonSystem.getInstance().setGame(new HashMap<UserModel, List<CardAnimalModel>>());
+		
+		int start = 0;
+		
+		for (UserModel player : CommonSystem.getInstance().getPlayers()) {
+			int cardLimit = start + CommonSystem.NUMBER_CARDS_PLAYER;
+			
+			List<CardAnimalModel> cards = new ArrayList<CardAnimalModel>();
+			
+			for (int i = start; i < cardLimit; i++) {
+				cards.add(shuffledList.get(i));
+			}
+			if(player.isComputer() == true) {
+				CommonSystem.getInstance().getComputer().setValue(cards);
+			}
+			start = cardLimit;
+			CommonSystem.getInstance().getGame().put(player, cards);
+			
+			CommonSystem.getInstance().getGame().get(player).get(0);
+		}
 	}
-	
+
 	/**
 	 * @description chooseFirstUser
 	 * Chooses the first player to start the game.
@@ -74,7 +101,15 @@ public class GameServiceImpl implements GameService {
 	 * @see GameService#startGame()
 	 */
 	public List<CardAnimalModel> startGame() {
-		return cardService.getCards();
+		
+		List<CardAnimalModel> cards = cardService.getCards();
+		CommonSystem.getInstance().setCards(cards);
+		
+		userService.createUser("Test");
+		
+		distributeCardsRandom();
+		
+		return cards;
 	}
 
 	/**

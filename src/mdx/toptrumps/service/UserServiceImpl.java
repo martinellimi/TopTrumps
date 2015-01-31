@@ -3,8 +3,13 @@
  */
 package mdx.toptrumps.service;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import mdx.toptrumps.common.CommonSystem;
+import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
 
 /**
@@ -64,7 +69,31 @@ public class UserServiceImpl implements UserService {
 	 * TODO: Implement this method
 	 */
 	public void createUser(String name) {
-		
+		List<UserModel> players = new ArrayList<UserModel>();
+		Map.Entry<UserModel, List<CardAnimalModel>> computer = new AbstractMap.SimpleEntry<UserModel, List<CardAnimalModel>>(createComputer(), null);
+		CommonSystem.getInstance().setComputer(computer);
+		players.add(createComputer());
+		players.add(createCommonUser(name));
+		CommonSystem.getInstance().setPlayers(players);
 	}
-
+	
+	private UserModel createComputer() {
+		UserModel user = new UserModel();
+		user.setComputer(true);
+		user.setId(-1);
+		user.setName("Android");
+		user.setPoint(CommonSystem.NUMBER_CARDS_PLAYER);
+		
+		return user;
+	}
+	
+	private UserModel createCommonUser(String name) {
+		UserModel user = new UserModel();
+		user.setComputer(false);
+		user.setName(name);
+		user.setId(1);
+		user.setPoint(CommonSystem.NUMBER_CARDS_PLAYER);
+		
+		return user;
+	}
 }

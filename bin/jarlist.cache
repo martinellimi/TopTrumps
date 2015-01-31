@@ -1,5 +1,7 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1422555689826 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\EclipseBundle\adt-bundle-windows-x86-20140702\sdk\extras\android\support\v7\appcompat\libs\android-support-v4.jar
-1422555705551 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 C:\EclipseBundle\adt-bundle-windows-x86-20140702\Workspace\project\TopTrumps\libs\android-support-v4.jar
+1422729812000 166 5040214f1c86669078b404a26e0d35542fe06597 /Users/martinellimi/git/TopTrumps/libs/appcompat_v7.jar
+1422637599000 166 5040214f1c86669078b404a26e0d35542fe06597 /Users/martinellimi/git/appcompat_v7/libs/appcompat_v7.jar
+1422729715000 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 /Users/martinellimi/git/TopTrumps/libs/android-support-v4.jar
+1422292430000 995624 3e4e879d0b3dc11f2feb3f55e77e3b5bd82c4a28 /Users/martinellimi/git/appcompat_v7/libs/android-support-v4.jar
