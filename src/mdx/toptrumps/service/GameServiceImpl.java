@@ -11,8 +11,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import android.app.Activity;
 import mdx.toptrumps.common.CommonSystem;
@@ -22,6 +24,11 @@ import mdx.toptrumps.model.CardAnimalAttribute;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.CardAttributeType;
 import mdx.toptrumps.model.UserModel;
+import mdx.toptrumps.service.comparator.HeightComparator;
+import mdx.toptrumps.service.comparator.KillerInstinctComparator;
+import mdx.toptrumps.service.comparator.LengthComparator;
+import mdx.toptrumps.service.comparator.SpeedComparator;
+import mdx.toptrumps.service.comparator.WeightComparator;
 
 /**
  * @author martinellimi
@@ -48,6 +55,11 @@ public class GameServiceImpl implements GameService {
 		userService = new UserServiceImpl();
 	}
 	
+	public GameServiceImpl() {
+		cardService = new CardServiceImpl();
+		userService = new UserServiceImpl();
+	}
+	
 	/**
 	 * @description distributeCardsRandom
 	 * Distributes the cards randomly.
@@ -59,25 +71,22 @@ public class GameServiceImpl implements GameService {
 		List<CardAnimalModel> shuffledList = CommonSystem.getInstance().getCards();
 		Collections.shuffle(shuffledList);
 		
-		CommonSystem.getInstance().setGame(new HashMap<UserModel, List<CardAnimalModel>>());
-		
 		int start = 0;
 		
 		for (UserModel player : CommonSystem.getInstance().getPlayers()) {
 			int cardLimit = start + CommonSystem.NUMBER_CARDS_PLAYER;
 			
-			List<CardAnimalModel> cards = new ArrayList<CardAnimalModel>();
+			LinkedList<CardAnimalModel> cards = new LinkedList<CardAnimalModel>();
 			
 			for (int i = start; i < cardLimit; i++) {
 				cards.add(shuffledList.get(i));
 			}
 			if(player.isComputer() == true) {
 				CommonSystem.getInstance().getComputer().setValue(cards);
+			} else {
+				CommonSystem.getInstance().getPlayer1().setValue(cards);
 			}
 			start = cardLimit;
-			CommonSystem.getInstance().getGame().put(player, cards);
-			
-			CommonSystem.getInstance().getGame().get(player).get(0);
 		}
 	}
 
@@ -117,13 +126,53 @@ public class GameServiceImpl implements GameService {
 	 * Evaluates the move, using comparable to compare the players cards, 
 	 * deciding the winner and the loser and the next player to start the move.
 	 * 
+	 * @param CardAnimalAttribute attr
 	 * @return List<CardModel>
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
 	 * @see GameService#evaluateMove()
 	 */
-	public UserModel evaluateMove() {
-		return null;
+	public UserModel evaluateMove(CardAnimalAttribute attr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
+		CardAnimalModel player1Card = CommonSystem.getInstance().getPlayer1().getValue().get(0);
+		CardAnimalModel computerCard = CommonSystem.getInstance().getComputer().getValue().get(0);
+		
+		UserModel returnUser = new UserModel();
+		
+		Integer winner = 0;
+		
+		switch (attr) {
+			case Height:
+				winner = HeightComparator.getInstance().compare(player1Card, computerCard);
+			break;
+			case Weight:
+				winner = WeightComparator.getInstance().compare(player1Card, computerCard);
+			break;
+			case Length:
+				winner = LengthComparator.getInstance().compare(player1Card, computerCard);
+			break;
+			case KillerInstinct:
+				winner = KillerInstinctComparator.getInstance().compare(player1Card, computerCard);
+			break;
+			case Speed:
+				winner = SpeedComparator.getInstance().compare(player1Card, computerCard);
+			break;
+		}
+		
+		if(winner == 1) {
+			returnUser = CommonSystem.getInstance().getPlayer1().getKey();
+		} else if(winner == 0) {
+			
+		} else {
+			returnUser = CommonSystem.getInstance().getComputer().getKey();
+		}
+		
+		CommonSystem.getInstance().setPlayerTurn(returnUser);
+		
+		return returnUser;
 	}
-
+	
 	/**
 	 * @description computerMove
 	 * Decides which attribute the computer will 'play' against the other player 
@@ -161,6 +210,7 @@ public class GameServiceImpl implements GameService {
 			}
 			counter = 0;
 		}
+		
 		return bestMove.getKey();
 	}
 	
@@ -182,13 +232,11 @@ public class GameServiceImpl implements GameService {
 			
 			Class aClass = card.getClass();
 			
-			Method method = card.getClass().getMethod("get" + key.getName(), null);
+			Method method = card.getClass().getMethod("get" + key.getName().replace(" ", ""), null);
 	
-			Object returnValue = method.invoke(null, null);
+			Object returnValue = method.invoke(card, null);
 			
-			Class returnType = method.getReturnType();
-			
-			object = AnimalAttribute.class.cast(returnType);
+			object = AnimalAttribute.class.cast(returnValue);
 		
 		} catch (NoSuchMethodException e) {
 			System.out.println("Error when getting attribute.");
@@ -216,5 +264,8 @@ public class GameServiceImpl implements GameService {
 		
 		return result;
 	}
-
+	
+	public void setWinner(UserModel user) {
+		userService.setWinner(user);
+	}
 }

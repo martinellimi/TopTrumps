@@ -3,15 +3,22 @@
  */
 package mdx.toptrumps.common;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.content.pm.ServiceInfo;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
+import mdx.toptrumps.service.GameService;
+import mdx.toptrumps.service.GameServiceImpl;
+import mdx.toptrumps.service.UserService;
+import mdx.toptrumps.service.UserServiceImpl;
 
 /**
  * @author martinellimi
@@ -31,13 +38,19 @@ public final class CommonSystem {
 	
 	private List<CardAnimalModel> cards;
 	
-	private Map<UserModel, CardAnimalModel> move;
+//	private Map<UserModel, CardAnimalModel> move;
 	
-	private Map<UserModel, List<CardAnimalModel>> game;
+//	private Map<UserModel, List<CardAnimalModel>> game;
 	
-	private Map.Entry<UserModel, List<CardAnimalModel>> computer;
+	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> computer;
+	
+	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1;
+	
+	private UserModel playerTurn;
 	
 	private static CommonSystem commonSystem;
+	
+	private GameService gameService = new GameServiceImpl();
 	
 	private CommonSystem() { }
 	
@@ -60,17 +73,17 @@ public final class CommonSystem {
 	}
 	
 	/** @return the move */
-	public Map<UserModel, CardAnimalModel> getMove() {
-		if(this.move == null) {
-			this.move = new HashMap<UserModel, CardAnimalModel>();
-		}
-		return move;
-	}
+//	public Map<UserModel, CardAnimalModel> getMove() {
+//		if(this.move == null) {
+//			this.move = new HashMap<UserModel, CardAnimalModel>();
+//		}
+//		return move;
+//	}
 
-	/** @param move the move to set */
-	public void setMove(Map<UserModel, CardAnimalModel> move) {
-		this.move = move;
-	}
+//	/** @param move the move to set */
+//	public void setMove(Map<UserModel, CardAnimalModel> move) {
+//		this.move = move;
+//	}
 	
 	/** @return the players */
 	public List<UserModel> getPlayers() {
@@ -82,26 +95,53 @@ public final class CommonSystem {
 		this.players = players;
 	}
 	
-	/** @return the game */
-	public Map<UserModel, List<CardAnimalModel>> getGame() {
-		return game;
-	}
-
-	/** @param game the game to set */
-	public void setGame(Map<UserModel, List<CardAnimalModel>> game) {
-		this.game = game;
-	}
+//	/** @return the game */
+//	public Map<UserModel, List<CardAnimalModel>> getGame() {
+//		return game;
+//	}
+//
+//	/** @param game the game to set */
+//	public void setGame(Map<UserModel, List<CardAnimalModel>> game) {
+//		this.game = game;
+//	}
 	
 	/** @return the computer */
-	public Map.Entry<UserModel, List<CardAnimalModel>> getComputer() {
+	public Map.Entry<UserModel, LinkedList<CardAnimalModel>> getComputer() {
 		return computer;
 	}
 
 	/** @param computer the computer to set */
-	public void setComputer(Map.Entry<UserModel, List<CardAnimalModel>> computer) {
+	public void setComputer(Map.Entry<UserModel, LinkedList<CardAnimalModel>> computer) {
 		if(this.computer == null) {
-			this.computer = new AbstractMap.SimpleEntry<UserModel, List<CardAnimalModel>>(null, null);
+			this.computer = new AbstractMap.SimpleEntry<UserModel, LinkedList<CardAnimalModel>>(null, null);
 		}
 		this.computer = computer;
 	}
+	
+	/** @return the playerTurn */
+	public UserModel getPlayerTurn() {
+		return playerTurn;
+	}
+
+	/** @param userTurn the userTurn to set 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException */
+	public void setPlayerTurn(UserModel playerTurn) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		this.playerTurn = playerTurn;
+		if(playerTurn.isComputer() == true) {
+			gameService.computerMove(this.computer.getValue().get(0));
+		}
+	}
+	
+	/** @return the player1 */
+	public Map.Entry<UserModel, LinkedList<CardAnimalModel>> getPlayer1() {
+		return player1;
+	}
+
+	/** @param player1 the player1 to set */
+	public void setPlayer1(Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1) {
+		this.player1 = player1;
+	}
+
 }

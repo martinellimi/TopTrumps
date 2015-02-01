@@ -28,12 +28,12 @@ public class KillerInstinctComparator implements Comparator<CardAnimalModel> {
 	
 	/**
 	 * @description getInstance
-	 * It has Package-protected visibility and returns the Singleton instance of this comparator.
+	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 
 	 * @return killer InstinctComparator
 	 */
-	static KillerInstinctComparator getInstance() {
+	public static KillerInstinctComparator getInstance() {
 		if(killerInstinctComparator == null) {
 			killerInstinctComparator = new KillerInstinctComparator();
 		}

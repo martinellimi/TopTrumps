@@ -38,7 +38,7 @@ public interface GameService {
 	 * @param 
 	 * @return UserModel
 	 */
-	public UserModel evaluateMove();
+	public UserModel evaluateMove(CardAnimalAttribute attr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 	
 	/**
 	 * @description computerMode
@@ -48,4 +48,6 @@ public interface GameService {
 	 * @return CardAttributeType
 	 */
 	public CardAnimalAttribute computerMove(CardAnimalModel card) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	
+	public void setWinner(UserModel user);
 }

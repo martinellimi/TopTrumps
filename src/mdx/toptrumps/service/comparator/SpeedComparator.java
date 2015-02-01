@@ -28,12 +28,12 @@ public class SpeedComparator implements Comparator<CardAnimalModel> {
 	
 	/**
 	 * @description getInstance
-	 * It has Package-protected visibility and returns the Singleton instance of this comparator.
+	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 
 	 * @return speedComparator
 	 */
-	static SpeedComparator getInstance() {
+	public static SpeedComparator getInstance() {
 		if(speedComparator == null) {
 			speedComparator = new SpeedComparator();
 		}

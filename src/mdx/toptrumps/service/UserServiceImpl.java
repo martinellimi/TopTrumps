@@ -5,6 +5,7 @@ package mdx.toptrumps.service;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,34 @@ public class UserServiceImpl implements UserService {
 	 * TODO: Implement this method
 	 */
 	public void setWinner(UserModel user) {
+		if(user.isComputer() == true) {
+			CardAnimalModel cardLost = new CardAnimalModel();
+			cardLost = CommonSystem.getInstance().getPlayer1().getValue().get(0);
+			CommonSystem.getInstance().getPlayer1().getValue().removeFirst();
+			
+			CardAnimalModel cardBack = new CardAnimalModel();
+			cardBack = CommonSystem.getInstance().getComputer().getValue().get(0);
+			CommonSystem.getInstance().getComputer().getValue().removeFirst();
+			
+			CommonSystem.getInstance().getComputer().getValue().addLast(cardLost);
+			CommonSystem.getInstance().getComputer().getValue().addLast(cardBack);
+			
+			
+		} else {
+			CardAnimalModel cardLost = new CardAnimalModel();
+			cardLost = CommonSystem.getInstance().getComputer().getValue().get(0);
+			CommonSystem.getInstance().getComputer().getValue().removeFirst();
+			
+			CardAnimalModel cardBack = new CardAnimalModel();
+			cardBack = CommonSystem.getInstance().getPlayer1().getValue().get(0);
+			CommonSystem.getInstance().getPlayer1().getValue().removeFirst();
+			
+			CommonSystem.getInstance().getPlayer1().getValue().addLast(cardLost);
+			CommonSystem.getInstance().getPlayer1().getValue().addLast(cardBack);
+		}
+		
+		CommonSystem.getInstance().getPlayer1().getKey().setPoint(CommonSystem.getInstance().getPlayer1().getValue().size());
+		CommonSystem.getInstance().getComputer().getKey().setPoint(CommonSystem.getInstance().getComputer().getValue().size());
 	}
 
 	/**
@@ -70,11 +99,16 @@ public class UserServiceImpl implements UserService {
 	 */
 	public void createUser(String name) {
 		List<UserModel> players = new ArrayList<UserModel>();
-		Map.Entry<UserModel, List<CardAnimalModel>> computer = new AbstractMap.SimpleEntry<UserModel, List<CardAnimalModel>>(createComputer(), null);
+		
+		Map.Entry<UserModel, LinkedList<CardAnimalModel>> computer = new AbstractMap.SimpleEntry<UserModel, LinkedList<CardAnimalModel>>(createComputer(), null);
+		Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1 = new AbstractMap.SimpleEntry<UserModel, LinkedList<CardAnimalModel>>(createCommonUser(name), null);
 		CommonSystem.getInstance().setComputer(computer);
+		CommonSystem.getInstance().setPlayer1(player1);
+		
 		players.add(createComputer());
 		players.add(createCommonUser(name));
 		CommonSystem.getInstance().setPlayers(players);
+		
 	}
 	
 	private UserModel createComputer() {

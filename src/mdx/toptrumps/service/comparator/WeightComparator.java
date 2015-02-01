@@ -28,12 +28,12 @@ public class WeightComparator implements Comparator<CardAnimalModel> {
 	
 	/**
 	 * @description getInstance
-	 * It has Package-protected visibility and returns the Singleton instance of this comparator.
+	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 
 	 * @return WeightComparator
 	 */
-	static WeightComparator getInstance() {
+	public static WeightComparator getInstance() {
 		if(weightComparator == null) {
 			weightComparator = new WeightComparator();
 		}

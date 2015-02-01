@@ -3,6 +3,7 @@
  */
 package mdx.toptrumps;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -10,99 +11,117 @@ import java.util.Map.Entry;
 import org.w3c.dom.Text;
 
 import mdx.toptrumps.common.CommonSystem;
+import mdx.toptrumps.model.CardAnimalAttribute;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
+import mdx.toptrumps.service.GameService;
+import mdx.toptrumps.service.GameServiceImpl;
 import mdx.toptrumps.view.CardView;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * @author martinellimi
  * 
- * @description GameActivity.java 
- * class description
+ * @description GameActivity.java class description
  * 
  * @version version 1.0 30 Jan 2015
  */
-public class GameActivity extends Activity{
+public class GameActivity extends Activity {
+
+	private GameService gameService = new GameServiceImpl();
+	
+	UserModel winner;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	
+
 		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.showcards);
-		
+
+		setContentView(R.layout.mainview);
+
 		setUpScreen();
 	}
-	
+
 	private void setUpScreen() {
-		UserModel user = (UserModel)CommonSystem.getInstance().getGame().keySet().toArray()[0];
+		setContentView(R.layout.mainview);
 		
-		TextView userPoint = (TextView)findViewById(R.id.scoreUser);
+		UserModel user = CommonSystem.getInstance().getPlayer1().getKey();
+
+		TextView userPoint = (TextView) findViewById(R.id.scoreUser);
 		userPoint.setText(user.getPoint().toString());
-		TextView androidPoint = (TextView)findViewById(R.id.scoreAndroid);
-		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey().getPoint().toString());
-		
+		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
+		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
+				.getPoint().toString());
+
 		setUpCardForTheMove();
 	}
-	
+
 	private void setUpCardForTheMove() {
-		CommonSystem.getInstance().setMove(new HashMap<UserModel, CardAnimalModel>());
-		for(Entry<UserModel, List<CardAnimalModel>> item : CommonSystem.getInstance().getGame().entrySet()) {
-			CommonSystem.getInstance().getMove().put(item.getKey(), item.getValue().get(0));
-		}
-		
-		CommonSystem.getInstance().getMove().put(CommonSystem.getInstance().getComputer().getKey(), 
-				CommonSystem.getInstance().getComputer().getValue().get(0));
-		
 		setUpdCardView();
 	}
-	
+
 	private void setUpdCardView() {
-		for(Entry<UserModel, CardAnimalModel> item : CommonSystem.getInstance().getMove().entrySet()) {
-			if(item.getKey().isComputer()) {
-				setUpAndroidCards(item.getValue());
-			} else {
-				setUpUserCards(item.getValue());
-			}
-		}
+		setUpUserCards(CommonSystem.getInstance().getPlayer1().getValue().getFirst());
 	}
-	
-	private void setUpUserCards(CardAnimalModel card){
-		Button btnHeight = (Button)findViewById(R.id.userheight);
+
+	private void setUpUserCards(CardAnimalModel card) {
+
+		TextView cardName = (TextView) findViewById(R.id.cardNameUser);
+		cardName.setText(card.getName());
+
+		Button btnHeight = (Button) findViewById(R.id.userheight);
 		setButton(btnHeight, card.getHeight().getValue().toString());
-		
-		Button btnUserkillerinstinct = (Button)findViewById(R.id.userkillerinstinct);
-		setButton(btnUserkillerinstinct, card.getKillerInstinct().getValue().toString());
-		
-		Button btnUserlength = (Button)findViewById(R.id.userlength);
+
+		Button btnUserkillerinstinct = (Button) findViewById(R.id.userkillerinstinct);
+		setButton(btnUserkillerinstinct, card.getKillerInstinct().getValue()
+				.toString());
+
+		Button btnUserlength = (Button) findViewById(R.id.userlength);
 		setButton(btnUserlength, card.getLength().getValue().toString());
-		
-		Button btnUserspeed = (Button)findViewById(R.id.userspeed);
+
+		Button btnUserspeed = (Button) findViewById(R.id.userspeed);
 		setButton(btnUserspeed, card.getSpeed().getValue().toString());
-		
-		Button btnUserweight = (Button)findViewById(R.id.userweight);
+
+		Button btnUserweight = (Button) findViewById(R.id.userweight);
 		setButton(btnUserweight, card.getWeight().getValue().toString());
 	}
-	
-	private void setUpAndroidCards(CardAnimalModel card){
-		Button btnHeight = (Button)findViewById(R.id.androidheight);
+
+	private void setUpAndroidCards(CardAnimalModel card) {
+
+		UserModel user = CommonSystem.getInstance().getPlayer1().getKey();
+
+		TextView userPoint = (TextView) findViewById(R.id.scoreUser);
+		userPoint.setText(user.getPoint().toString());
+		userPoint.invalidate();
+		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
+		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
+				.getPoint().toString());
+		
+		TextView cardName = (TextView) findViewById(R.id.cardNameAndroid);
+		cardName.setText(card.getName());
+
+		Button btnHeight = (Button) findViewById(R.id.androidheight);
 		setButton(btnHeight, card.getHeight().getValue().toString());
-		
-		Button btnUserkillerinstinct = (Button)findViewById(R.id.androidkillerinstinct);
-		setButton(btnUserkillerinstinct, card.getKillerInstinct().getValue().toString());
-		
-		Button btnUserlength = (Button)findViewById(R.id.androidlength);
+
+		Button btnUserkillerinstinct = (Button) findViewById(R.id.androidkillerinstinct);
+		setButton(btnUserkillerinstinct, card.getKillerInstinct().getValue()
+				.toString());
+
+		Button btnUserlength = (Button) findViewById(R.id.androidlength);
 		setButton(btnUserlength, card.getLength().getValue().toString());
-		
-		Button btnUserspeed = (Button)findViewById(R.id.androidspeed);
+
+		Button btnUserspeed = (Button) findViewById(R.id.androidspeed);
 		setButton(btnUserspeed, card.getSpeed().getValue().toString());
-		
-		Button btnUserweight = (Button)findViewById(R.id.androidweight);
+
+		Button btnUserweight = (Button) findViewById(R.id.androidweight);
 		setButton(btnUserweight, card.getWeight().getValue().toString());
 	}
 
@@ -110,13 +129,76 @@ public class GameActivity extends Activity{
 		btn.setText(text);
 		btn.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				try {
+					switch (v.getId()) {
+						case R.id.userheight:
+							evaluateMove(CardAnimalAttribute.Height);
+						break;
+						case R.id.userkillerinstinct:
+							evaluateMove(CardAnimalAttribute.KillerInstinct);
+						break;
+						case R.id.userlength:
+							evaluateMove(CardAnimalAttribute.Length);
+						break;
+						case R.id.userspeed:
+							evaluateMove(CardAnimalAttribute.Speed);
+						break;
+						case R.id.userweight:
+							evaluateMove(CardAnimalAttribute.Weight);
+						break;
+					}
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
 				
 			}
 		});
 	}
-	
-	public void startRound() {
-		
+
+	public void computeMove() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		CardAnimalAttribute attribute = gameService.computerMove(CommonSystem.getInstance().getComputer().getValue().getFirst());
+		this.evaluateMove(attribute);
 	}
 	
+	private void evaluateMove(CardAnimalAttribute attr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		winner = gameService.evaluateMove(attr);
+
+		Intent start = new Intent(GameActivity.this, ShowCardActivity.class);
+		startActivity(start);
+		
+//		setContentView(R.layout.showcards);
+//		
+//		if(winner.isComputer() == true) {
+//			ImageView image = (ImageView)findViewById(R.id.userWin);
+//			image.setVisibility(0);
+//			ImageView computer = (ImageView)findViewById(R.id.androidWin);
+//			computer.setVisibility(1);
+//			computer.invalidate();
+//		} else {
+//			ImageView image = (ImageView)findViewById(R.id.userWin);
+//			image.setVisibility(1);
+//			ImageView computer = (ImageView)findViewById(R.id.androidWin);
+//			computer.setVisibility(0);
+//			computer.invalidate();
+//		}
+//		
+//		setUpAndroidCards(CommonSystem.getInstance().getComputer().getValue().getFirst());
+//		setUpUserCards(CommonSystem.getInstance().getPlayer1().getValue().getFirst());
+//		
+//		new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//            	gameService.setWinner(winner);
+//        		setUpScreen();
+//            }
+//        }, 5000);
+		
+		
+		
+		
+	}
 }

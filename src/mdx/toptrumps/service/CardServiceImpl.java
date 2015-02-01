@@ -33,6 +33,9 @@ public class CardServiceImpl implements CardService {
 		cardDAO = new CardDAOImpl(activity);
 	}
 	
+	public CardServiceImpl() {
+	}
+	
 	/**
 	 * @description getCards
 	 * Gets the cards from the CardDAO and returns the cards to play the game.

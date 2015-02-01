@@ -28,12 +28,12 @@ public class HeightComparator implements Comparator<CardAnimalModel> {
 	
 	/**
 	 * @description getInstance
-	 * It has Package-protected visibility and returns the Singleton instance of this comparator.
+	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 
 	 * @return heightComparator
 	 */
-	static HeightComparator getInstance() {
+	public static HeightComparator getInstance() {
 		if(heightComparator == null) {
 			heightComparator = new HeightComparator();
 		}
