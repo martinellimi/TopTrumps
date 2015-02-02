@@ -6,6 +6,7 @@ package mdx.toptrumps.service;
 import java.util.List;
 
 import android.app.Activity;
+import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.dao.CardDAO;
 import mdx.toptrumps.model.dao.CardDAOImpl;
@@ -45,7 +46,10 @@ public class CardServiceImpl implements CardService {
 	 * TODO: implement this method.
 	 */
 	public List<CardAnimalModel> getCards() {
-		return cardDAO.getCards();
+		if(CommonSystem.getInstance().getCards() == null || CommonSystem.getInstance().getCards().size() == 0) {
+			return cardDAO.getCards();
+		}
+		return CommonSystem.getInstance().getCards();
 	}
 
 }

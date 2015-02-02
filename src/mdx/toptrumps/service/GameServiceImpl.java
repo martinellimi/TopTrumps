@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 import android.app.Activity;
@@ -97,8 +98,13 @@ public class GameServiceImpl implements GameService {
 	 * @return UserModel
 	 * TODO: Implements this method
 	 */
-	private UserModel chooseFirstUser() {
-		return null;
+	private void chooseFirstUser() {
+		
+		Random random = new Random();
+		
+		UserModel user = CommonSystem.getInstance().getPlayers().get(random.nextInt(CommonSystem.getInstance().getPlayers().size()));
+		
+		CommonSystem.getInstance().setPlayerTurn(user);
 	}
 	
 	/**
@@ -114,9 +120,11 @@ public class GameServiceImpl implements GameService {
 		List<CardAnimalModel> cards = cardService.getCards();
 		CommonSystem.getInstance().setCards(cards);
 		
-		userService.createUser("Test");
+		userService.createUser("Player 1");
 		
 		distributeCardsRandom();
+		
+		chooseFirstUser();
 		
 		return cards;
 	}
@@ -162,10 +170,14 @@ public class GameServiceImpl implements GameService {
 		
 		if(winner == 1) {
 			returnUser = CommonSystem.getInstance().getPlayer1().getKey();
+			CommonSystem.getInstance().setGameDraw(false);
 		} else if(winner == 0) {
-			
+			//TODO: Correct in case of draw
+			returnUser = CommonSystem.getInstance().getPlayerTurn();
+			CommonSystem.getInstance().setGameDraw(true);
 		} else {
 			returnUser = CommonSystem.getInstance().getComputer().getKey();
+			CommonSystem.getInstance().setGameDraw(false);
 		}
 		
 		CommonSystem.getInstance().setPlayerTurn(returnUser);

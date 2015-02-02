@@ -21,14 +21,6 @@ import android.widget.Button;
  * Android Application.
  * @version version 1.0 27 Jan 2015
  */
-/**
- * @author martinellimi
- * 
- * @description TopTrumpsActivity.java 
- * class description
- * 
- * @version version 1.0 28 Jan 2015
- */
 public class TopTrumpsActivity extends Activity {
 	
 	public static Activity activity;

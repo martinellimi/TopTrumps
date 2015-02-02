@@ -154,10 +154,10 @@
             android:text="999"
             android:textColor="#000000"
             android:textSize="9dp" />
-
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="190dp"
         android:layout_height="245dp"
         android:layout_alignParentRight="true"
@@ -165,7 +165,25 @@
         android:layout_marginRight="17dp"
         android:background="@drawable/card3g"
         android:orientation="vertical" >
-
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1" >
+
+        <TextView
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Attribute"
+            android:textColor="#000000" />
+    </FrameLayout>
 
 </RelativeLayout>

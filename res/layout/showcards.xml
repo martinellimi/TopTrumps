@@ -85,7 +85,6 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="-10dp"
                 android:src="@drawable/winner2" />
-
         </FrameLayout>
 
         <Button
@@ -162,10 +161,10 @@
             android:text="999"
             android:textColor="#000000"
             android:textSize="9dp" />
-
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="190dp"
         android:layout_height="245dp"
         android:layout_alignParentRight="true"
@@ -198,7 +197,6 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="-10dp"
                 android:src="@drawable/winner2" />
-
         </FrameLayout>
 
         <Button
@@ -275,7 +273,23 @@
             android:text="999"
             android:textColor="#000000"
             android:textSize="9dp" />
-
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout1" >
+
+        <TextView
+            android:id="@+id/attribute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Attribute"
+            android:textColor="#000000" />
+    </FrameLayout>
 
 </RelativeLayout>

@@ -61,6 +61,6 @@ public class HeightComparator implements Comparator<CardAnimalModel> {
 	 * @return +1, -1 or 0
 	 */
 	public int compare(CardAnimalModel c1, CardAnimalModel c2) {
-		return c2.getHeight().getValue().compareTo(c1.getHeight().getValue());
+		return c1.getHeight().getValue().compareTo(c2.getHeight().getValue());
 	}
 }

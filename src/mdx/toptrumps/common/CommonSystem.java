@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.pm.ServiceInfo;
+import mdx.toptrumps.GameActivity;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
 import mdx.toptrumps.service.GameService;
@@ -38,19 +39,19 @@ public final class CommonSystem {
 	
 	private List<CardAnimalModel> cards;
 	
-//	private Map<UserModel, CardAnimalModel> move;
-	
-//	private Map<UserModel, List<CardAnimalModel>> game;
-	
 	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> computer;
 	
 	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1;
 	
+	private LinkedList<CardAnimalModel> draw;
+	
+	private Boolean gameDraw;
+	
 	private UserModel playerTurn;
 	
-	private static CommonSystem commonSystem;
+	private UserModel winner;
 	
-	private GameService gameService = new GameServiceImpl();
+	private static CommonSystem commonSystem;
 	
 	private CommonSystem() { }
 	
@@ -72,19 +73,6 @@ public final class CommonSystem {
 		this.cards = cards;
 	}
 	
-	/** @return the move */
-//	public Map<UserModel, CardAnimalModel> getMove() {
-//		if(this.move == null) {
-//			this.move = new HashMap<UserModel, CardAnimalModel>();
-//		}
-//		return move;
-//	}
-
-//	/** @param move the move to set */
-//	public void setMove(Map<UserModel, CardAnimalModel> move) {
-//		this.move = move;
-//	}
-	
 	/** @return the players */
 	public List<UserModel> getPlayers() {
 		return players;
@@ -94,16 +82,6 @@ public final class CommonSystem {
 	public void setPlayers(List<UserModel> players) {
 		this.players = players;
 	}
-	
-//	/** @return the game */
-//	public Map<UserModel, List<CardAnimalModel>> getGame() {
-//		return game;
-//	}
-//
-//	/** @param game the game to set */
-//	public void setGame(Map<UserModel, List<CardAnimalModel>> game) {
-//		this.game = game;
-//	}
 	
 	/** @return the computer */
 	public Map.Entry<UserModel, LinkedList<CardAnimalModel>> getComputer() {
@@ -127,11 +105,8 @@ public final class CommonSystem {
 	 * @throws InvocationTargetException 
 	 * @throws IllegalArgumentException 
 	 * @throws IllegalAccessException */
-	public void setPlayerTurn(UserModel playerTurn) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void setPlayerTurn(UserModel playerTurn) {
 		this.playerTurn = playerTurn;
-		if(playerTurn.isComputer() == true) {
-			gameService.computerMove(this.computer.getValue().get(0));
-		}
 	}
 	
 	/** @return the player1 */
@@ -142,6 +117,39 @@ public final class CommonSystem {
 	/** @param player1 the player1 to set */
 	public void setPlayer1(Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1) {
 		this.player1 = player1;
+	}
+	
+	/** @return the winner */
+	public UserModel getWinner() {
+		return winner;
+	}
+
+	/** @param winner the winner to set */
+	public void setWinner(UserModel winner) {
+		this.winner = winner;
+	}
+	
+	/** @return the draw */
+	public LinkedList<CardAnimalModel> getDraw() {
+		if(this.draw == null) {
+			this.draw = new LinkedList<CardAnimalModel>();
+		}
+		return draw;
+	}
+
+	/** @param draw the draw to set */
+	public void setDraw(LinkedList<CardAnimalModel> draw) {
+		this.draw = draw;
+	}
+	
+	/** @return the gameDraw */
+	public Boolean isGameDraw() {
+		return gameDraw;
+	}
+
+	/** @param gameDraw the gameDraw to set */
+	public void setGameDraw(Boolean gameDraw) {
+		this.gameDraw = gameDraw;
 	}
 
 }

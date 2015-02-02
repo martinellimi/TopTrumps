@@ -4,6 +4,7 @@
 package mdx.toptrumps;
 
 import mdx.toptrumps.common.CommonSystem;
+import mdx.toptrumps.model.CardAnimalAttribute;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
 import mdx.toptrumps.service.GameService;
@@ -36,7 +37,12 @@ public class ShowCardActivity extends Activity {
 
 		setContentView(R.layout.showcards);
 		
+		CardAnimalAttribute attr = (CardAnimalAttribute) getIntent().getSerializableExtra("attribute");
+		
 		setUpWinner();
+		
+		TextView attribute = (TextView)findViewById(R.id.attribute);
+		attribute.setText(attr.getName());
 		
 		setUpAndroidCards(CommonSystem.getInstance().getComputer().getValue().getFirst());
 		setUpUserCards(CommonSystem.getInstance().getPlayer1().getValue().getFirst());
@@ -45,13 +51,20 @@ public class ShowCardActivity extends Activity {
 	        @Override
 	        public void run() {
 	        	gameService.setWinner(CommonSystem.getInstance().getPlayerTurn());
-	        	Intent start = new Intent(ShowCardActivity.this, GameActivity.class);
-				startActivity(start);
+	        	if(CommonSystem.getInstance().getComputer().getValue().size() == 0 || 
+	        			CommonSystem.getInstance().getPlayer1().getValue().size() == 0) {
+	        		Intent start = new Intent(ShowCardActivity.this, EndGameActivity.class);
+					startActivity(start);
+	        	} else {
+	        		Intent start = new Intent(ShowCardActivity.this, GameActivity.class);
+					startActivity(start);
+	        	}
 	        }
-	    }, 1000);
+	    }, 2500);
 
 	}
-
+	
+	
 	private void setUpAndroidCards(CardAnimalModel card) {
 
 		UserModel user = CommonSystem.getInstance().getPlayer1().getKey();
@@ -89,19 +102,20 @@ public class ShowCardActivity extends Activity {
 	
 	private void setUpWinner() {
 		UserModel winner = CommonSystem.getInstance().getPlayerTurn();
-		
-		if(winner.isComputer() == true) {
-			ImageView image = (ImageView)findViewById(R.id.userWin);
-			image.setVisibility(View.VISIBLE);
-			ImageView computer = (ImageView)findViewById(R.id.androidWin);
-			computer.setVisibility(View.INVISIBLE);
-			computer.invalidate();
-		} else {
-			ImageView image = (ImageView)findViewById(R.id.userWin);
-			image.setVisibility(View.INVISIBLE);
-			ImageView computer = (ImageView)findViewById(R.id.androidWin);
-			computer.setVisibility(View.VISIBLE);
-			computer.invalidate();
+		if(!CommonSystem.getInstance().isGameDraw()) {
+			if(winner.isComputer() == true) {
+				ImageView image = (ImageView)findViewById(R.id.userWin);
+				image.setVisibility(View.INVISIBLE);
+				ImageView computer = (ImageView)findViewById(R.id.androidWin);
+				computer.setVisibility(View.VISIBLE);
+				computer.invalidate();
+			} else {
+				ImageView image = (ImageView)findViewById(R.id.userWin);
+				image.setVisibility(View.VISIBLE);
+				ImageView computer = (ImageView)findViewById(R.id.androidWin);
+				computer.setVisibility(View.INVISIBLE);
+				computer.invalidate();
+			}
 		}
 	}
 	

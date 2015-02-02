@@ -4,11 +4,6 @@
 package mdx.toptrumps;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import org.w3c.dom.Text;
 
 import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.model.CardAnimalAttribute;
@@ -16,15 +11,12 @@ import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
 import mdx.toptrumps.service.GameService;
 import mdx.toptrumps.service.GameServiceImpl;
-import mdx.toptrumps.view.CardView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -48,6 +40,25 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.mainview);
 
 		setUpScreen();
+		
+		if(CommonSystem.getInstance().getPlayerTurn().isComputer() == true) {
+			new Handler().postDelayed(new Runnable() {
+		        @Override
+		        public void run() {
+	    			try {
+	    				computeMove();
+	    			} catch (IllegalAccessException e) {
+	    				e.printStackTrace();
+	    			} catch (IllegalArgumentException e) {
+	    				e.printStackTrace();
+	    			} catch (InvocationTargetException e) {
+	    				e.printStackTrace();
+	    			}
+		        }
+		    }, 3000);
+		}
+		
+		
 	}
 
 	private void setUpScreen() {
@@ -60,6 +71,8 @@ public class GameActivity extends Activity {
 		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
 		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
 				.getPoint().toString());
+		TextView player = (TextView)findViewById(R.id.player);
+		player.setText(CommonSystem.getInstance().getPlayerTurn().getName());
 
 		setUpCardForTheMove();
 	}
@@ -127,36 +140,40 @@ public class GameActivity extends Activity {
 
 	private void setButton(Button btn, String text) {
 		btn.setText(text);
-		btn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				try {
-					switch (v.getId()) {
-						case R.id.userheight:
-							evaluateMove(CardAnimalAttribute.Height);
-						break;
-						case R.id.userkillerinstinct:
-							evaluateMove(CardAnimalAttribute.KillerInstinct);
-						break;
-						case R.id.userlength:
-							evaluateMove(CardAnimalAttribute.Length);
-						break;
-						case R.id.userspeed:
-							evaluateMove(CardAnimalAttribute.Speed);
-						break;
-						case R.id.userweight:
-							evaluateMove(CardAnimalAttribute.Weight);
-						break;
+		if(!CommonSystem.getInstance().getPlayerTurn().isComputer() == true) {
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					try {
+						switch (v.getId()) {
+							case R.id.userheight:
+								evaluateMove(CardAnimalAttribute.Height);
+							break;
+							case R.id.userkillerinstinct:
+								evaluateMove(CardAnimalAttribute.KillerInstinct);
+							break;
+							case R.id.userlength:
+								evaluateMove(CardAnimalAttribute.Length);
+							break;
+							case R.id.userspeed:
+								evaluateMove(CardAnimalAttribute.Speed);
+							break;
+							case R.id.userweight:
+								evaluateMove(CardAnimalAttribute.Weight);
+							break;
+						}
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					} catch (IllegalArgumentException e) {
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						e.printStackTrace();
 					}
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+					
 				}
-				
-			}
-		});
+			});
+		} else {
+			btn.setEnabled(false);
+		}
 	}
 
 	public void computeMove() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
@@ -167,7 +184,18 @@ public class GameActivity extends Activity {
 	private void evaluateMove(CardAnimalAttribute attr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		winner = gameService.evaluateMove(attr);
 
+		
 		Intent start = new Intent(GameActivity.this, ShowCardActivity.class);
+		
+
+		Bundle args = new Bundle();
+		args.putSerializable("attribute", attr);
+		
+//		start.putExtra("attribute", attr);
+
+//		b.putInt("attribute", attr); //Your id
+		start.putExtras(args); //Put your id to your next Intent
+		
 		startActivity(start);
 		
 //		setContentView(R.layout.showcards);

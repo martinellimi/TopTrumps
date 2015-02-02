@@ -61,6 +61,6 @@ public class LengthComparator implements Comparator<CardAnimalModel> {
 	 * @return +1, -1 or 0
 	 */
 	public int compare(CardAnimalModel c1, CardAnimalModel c2) {
-		return c2.getLength().getValue().compareTo(c1.getLength().getValue());
+		return c1.getLength().getValue().compareTo(c2.getLength().getValue());
 	}
 }

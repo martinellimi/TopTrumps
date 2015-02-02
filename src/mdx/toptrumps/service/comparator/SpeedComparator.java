@@ -61,6 +61,6 @@ public class SpeedComparator implements Comparator<CardAnimalModel> {
 	 * @return +1, -1 or 0
 	 */
 	public int compare(CardAnimalModel c1, CardAnimalModel c2) {
-		return c2.getSpeed().getValue().compareTo(c1.getSpeed().getValue());
+		return c1.getSpeed().getValue().compareTo(c2.getSpeed().getValue());
 	}
 }

@@ -58,30 +58,35 @@ public class UserServiceImpl implements UserService {
 	 * TODO: Implement this method
 	 */
 	public void setWinner(UserModel user) {
-		if(user.isComputer() == true) {
-			CardAnimalModel cardLost = new CardAnimalModel();
-			cardLost = CommonSystem.getInstance().getPlayer1().getValue().get(0);
-			CommonSystem.getInstance().getPlayer1().getValue().removeFirst();
-			
-			CardAnimalModel cardBack = new CardAnimalModel();
-			cardBack = CommonSystem.getInstance().getComputer().getValue().get(0);
-			CommonSystem.getInstance().getComputer().getValue().removeFirst();
-			
-			CommonSystem.getInstance().getComputer().getValue().addLast(cardLost);
-			CommonSystem.getInstance().getComputer().getValue().addLast(cardBack);
-			
-			
+		CardAnimalModel card1 = new CardAnimalModel();
+		CardAnimalModel card2 = new CardAnimalModel();
+		
+		card1 = CommonSystem.getInstance().getPlayer1().getValue().get(0);
+		CommonSystem.getInstance().getPlayer1().getValue().removeFirst();
+		
+		card2 = CommonSystem.getInstance().getComputer().getValue().get(0);
+		CommonSystem.getInstance().getComputer().getValue().removeFirst();
+		
+		if(!(CommonSystem.getInstance().getDraw().size() == 0 && !CommonSystem.getInstance().isGameDraw())) {
+			if(user.isComputer()) {
+				CommonSystem.getInstance().getComputer().getValue().addAll(CommonSystem.getInstance().getComputer().getValue().size(), CommonSystem.getInstance().getDraw());
+			} else if(user.getId() == 1) {
+				CommonSystem.getInstance().getPlayer1().getValue().addAll(CommonSystem.getInstance().getPlayer1().getValue().size(), CommonSystem.getInstance().getDraw());
+			}
+			CommonSystem.getInstance().getDraw().clear();
+		}
+		
+		if(!CommonSystem.getInstance().isGameDraw()) {
+			if(user.isComputer()) {
+				CommonSystem.getInstance().getComputer().getValue().addLast(card1);
+				CommonSystem.getInstance().getComputer().getValue().addLast(card2);
+			} else {
+				CommonSystem.getInstance().getPlayer1().getValue().addLast(card1);
+				CommonSystem.getInstance().getPlayer1().getValue().addLast(card2);
+			}
 		} else {
-			CardAnimalModel cardLost = new CardAnimalModel();
-			cardLost = CommonSystem.getInstance().getComputer().getValue().get(0);
-			CommonSystem.getInstance().getComputer().getValue().removeFirst();
-			
-			CardAnimalModel cardBack = new CardAnimalModel();
-			cardBack = CommonSystem.getInstance().getPlayer1().getValue().get(0);
-			CommonSystem.getInstance().getPlayer1().getValue().removeFirst();
-			
-			CommonSystem.getInstance().getPlayer1().getValue().addLast(cardLost);
-			CommonSystem.getInstance().getPlayer1().getValue().addLast(cardBack);
+			CommonSystem.getInstance().getDraw().add(card2);
+			CommonSystem.getInstance().getDraw().add(card1);
 		}
 		
 		CommonSystem.getInstance().getPlayer1().getKey().setPoint(CommonSystem.getInstance().getPlayer1().getValue().size());
