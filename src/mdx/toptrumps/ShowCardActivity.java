@@ -31,6 +31,13 @@ public class ShowCardActivity extends Activity {
 	private GameService gameService = new GameServiceImpl();
 	
 	@Override
+	public void onBackPressed() {
+	    Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    startActivity(intent);
+	}
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
@@ -75,6 +82,9 @@ public class ShowCardActivity extends Activity {
 		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
 		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
 				.getPoint().toString());
+		
+		ImageView cardImg = (ImageView)findViewById(R.id.imgCardAndroid);
+		cardImg.setImageBitmap(card.getImage());
 		
 		TextView cardName = (TextView) findViewById(R.id.cardNameAndroid);
 		cardName.setText(card.getName());
@@ -121,6 +131,10 @@ public class ShowCardActivity extends Activity {
 	
 	private void setUpUserCards(CardAnimalModel card) {
 
+		
+		ImageView cardImg = (ImageView)findViewById(R.id.imgCardUser);
+		cardImg.setImageBitmap(card.getImage());
+		
 		TextView cardName = (TextView) findViewById(R.id.cardNameUser);
 		cardName.setText(card.getName());
 
@@ -144,5 +158,11 @@ public class ShowCardActivity extends Activity {
 		btnUserweight.setText(card.getWeight().getValue()
 				.toString());
 	}
+	
+	//@Override
+	//public void finish() {
+	//	Intent playAgain = new Intent(ShowCardActivity.this, TopTrumpsActivity.class);
+    //	startActivityForResult(playAgain, 1);
+	//}
 	
 }

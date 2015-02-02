@@ -32,6 +32,16 @@ public class TopTrumpsActivity extends Activity {
 	public LinkedList<CardAnimalModel> cards;
 	
 	@Override
+	protected void onResume(){
+		
+		super.onResume();
+		if (getIntent().getBooleanExtra("EXIT", false)) {
+		    finish();
+		}
+	}
+	
+	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -47,15 +57,20 @@ public class TopTrumpsActivity extends Activity {
 		
 		btnPlayGame.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				setContentView(R.layout.selectplayers);
 				
-				Button btnStart = (Button) findViewById(R.id.playGame);
-				btnStart.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Intent start = new Intent(TopTrumpsActivity.this, GameActivity.class);
-						startActivity(start);
-					}
-				});
+				Intent playgame = new Intent(TopTrumpsActivity.this, SelectPlayersActivity.class);
+            	startActivityForResult(playgame, 1);
+				
+				
+				//setContentView(R.layout.selectplayers);
+				//
+				//Button btnStart = (Button) findViewById(R.id.playGame);
+				//btnStart.setOnClickListener(new View.OnClickListener() {
+				//	public void onClick(View v) {
+				//		Intent start = new Intent(TopTrumpsActivity.this, GameActivity.class);
+				//		startActivity(start);
+				//	}
+				//});
 			}
 		});
 		
@@ -63,7 +78,9 @@ public class TopTrumpsActivity extends Activity {
 		
 		btnHowPlay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				setContentView(R.layout.howtoplay);
+				//setContentView(R.layout.howtoplay);
+				Intent howtoplay = new Intent(TopTrumpsActivity.this, HowPlayActivity.class);
+            	startActivityForResult(howtoplay, 1);
 			}
 		});
 	}

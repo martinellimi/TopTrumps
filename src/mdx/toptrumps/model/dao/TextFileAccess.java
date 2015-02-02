@@ -133,7 +133,7 @@ public class TextFileAccess {
 				InputStream imageStream = null;
 				
 				try {
-					imageStream = assetManager.open("" + img);
+					imageStream = assetManager.open("database/images/" + img);
 				} catch (IOException e) {
 					System.out.println("Error while opening the image.");
 					e.printStackTrace();

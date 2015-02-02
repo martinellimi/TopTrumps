@@ -33,7 +33,7 @@ import mdx.toptrumps.service.UserServiceImpl;
  */
 public final class CommonSystem {
 	
-	public static final Integer NUMBER_CARDS_PLAYER = 15;
+	public static final Integer NUMBER_CARDS_PLAYER = 3;
 
 	private List<UserModel> players;
 	

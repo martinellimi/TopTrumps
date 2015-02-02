@@ -16,8 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.*;
 
 /**
  * @author martinellimi
@@ -31,6 +30,14 @@ public class GameActivity extends Activity {
 	private GameService gameService = new GameServiceImpl();
 	
 	UserModel winner;
+	
+	@Override
+	public void onBackPressed() {
+	    Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    startActivity(intent);
+	}
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,10 @@ public class GameActivity extends Activity {
 	}
 
 	private void setUpUserCards(CardAnimalModel card) {
-
+		
+		ImageView cardImg = (ImageView)findViewById(R.id.imgCardUser);
+		cardImg.setImageBitmap(card.getImage());
+		
 		TextView cardName = (TextView) findViewById(R.id.cardNameUser);
 		cardName.setText(card.getName());
 
@@ -105,6 +115,7 @@ public class GameActivity extends Activity {
 
 		Button btnUserweight = (Button) findViewById(R.id.userweight);
 		setButton(btnUserweight, card.getWeight().getValue().toString());
+		
 	}
 
 	private void setUpAndroidCards(CardAnimalModel card) {
@@ -117,6 +128,10 @@ public class GameActivity extends Activity {
 		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
 		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
 				.getPoint().toString());
+		
+		
+		ImageView cardImg = (ImageView)findViewById(R.id.imgCardAndroid);
+		cardImg.setImageBitmap(card.getImage());
 		
 		TextView cardName = (TextView) findViewById(R.id.cardNameAndroid);
 		cardName.setText(card.getName());

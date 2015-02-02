@@ -36,7 +36,7 @@ public class EndGameActivity extends Activity {
 
 		setContentView(R.layout.endmatch);
 		
-		Button btnStart = (Button) findViewById(R.id.Button01);
+		Button btnStart = (Button) findViewById(R.id.btnPlayAgain);
 		btnStart.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
@@ -51,19 +51,34 @@ public class EndGameActivity extends Activity {
 			}
 		});
 		
-		Button btnExit = (Button) findViewById(R.id.playGame);
+		
+		Button btnExit = (Button) findViewById(R.id.btnExit);
 		btnExit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
+			    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			    intent.putExtra("EXIT", true);
+			    startActivity(intent);
+				
 			}
 		});
 
 	}
 	
 	@Override
-	protected void onDestroy() {
-		
+	public void onBackPressed() {
+	    Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
+	    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	    startActivity(intent);
 	}
+	
+	
+	//@Override
+	//protected void onDestroy() {
+		
+	//}
 	
 	
 }
