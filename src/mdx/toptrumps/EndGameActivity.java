@@ -12,6 +12,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.UserModel;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
@@ -33,8 +34,23 @@ public class EndGameActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
+		
 		setContentView(R.layout.endmatch);
+		
+		if(CommonSystem.getInstance().getComputer().getValue().size() == 0){
+			MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.win);
+			mediaPlayer.start();
+			TextView endText = (TextView)findViewById(R.id.endMatch);
+			endText.setText("You Win");
+		}
+		
+		if(CommonSystem.getInstance().getPlayer1().getValue().size() == 0){
+			MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.lose);
+			mediaPlayer.start();
+			TextView endText = (TextView)findViewById(R.id.endMatch);
+			endText.setText("You Lose");
+		}
+
 		
 		Button btnStart = (Button) findViewById(R.id.btnPlayAgain);
 		btnStart.setOnClickListener(new View.OnClickListener() {
