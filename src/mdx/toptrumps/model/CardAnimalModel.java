@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 /**
  * @author martinellimi
  * 
- * @description CardAnimalModel.java 
- * class description
+ * Description: CardAnimalModel.java 
+ * Animal card model
  * 
  * @version version 1.0 30 Jan 2015
  */
@@ -32,19 +32,19 @@ public class CardAnimalModel extends CardModel {
 		this.killerInstinct = killerInstinct;
 	}
 	
-	/** @description field description */
+	/** Description: field description */
 	private AnimalAttribute height;
 
-	/** @description field description */
+	/** Description: field description */
 	private AnimalAttribute weight;
 	
-	/** @description field description */
+	/** Description: field description */
 	private AnimalAttribute length;
 	
-	/** @description field description */
+	/** Description: field description */
 	private AnimalAttribute speed;
 	
-	/** @description field description */
+	/** Description: field description */
 	private AnimalAttribute killerInstinct;
 	
 	/** @return the height */

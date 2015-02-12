@@ -10,13 +10,13 @@ import mdx.toptrumps.model.CardAnimalModel;
 
 /**
  * @author martinellimi
- * @description CardDAO.java class description
+ * Description: CardDAO.java class description
  * @version version 1.0 27 Jan 2015
  */
 public interface CardDAO {
 
 	/**
-	 * @description getCards
+	 * Description: getCards
 	 * Gets all the cards for the game and return a populated list with <code>CardModel</code> objects.
 	 * 
 	 * @return List<CardModel>

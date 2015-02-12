@@ -12,10 +12,8 @@ import java.util.Scanner;
 import mdx.toptrumps.TopTrumpsActivity;
 import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.model.AnimalAttribute;
-import mdx.toptrumps.model.Attribute;
 import mdx.toptrumps.model.CardAnimalAttribute;
 import mdx.toptrumps.model.CardAnimalModel;
-import mdx.toptrumps.model.CardAttributeType;
 import android.app.Activity;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -24,51 +22,51 @@ import android.graphics.BitmapFactory;
 /**
  * @author martinellimi
  * 
- * @description TextFileAccess.java 
+ * Description: TextFileAccess.java 
  * Singleton class to access file and generate the cards.
  * 
  * @version version 1.0 27 Jan 2015
  */
 public class TextFileAccess {
 
-	/** @description self static reference to the Singleton pattern */
+	/** Description: self static reference to the Singleton pattern */
 	static TextFileAccess dataAccessor; 
 	
-	/** @description reference to the Activity received in the constructor to create the asset */
+	/** Description: reference to the Activity received in the constructor to create the asset */
 	private Activity mainActivity;
 	
-	/** @description reference to the asset manager to setting up streams */
+	/** Description: reference to the asset manager to setting up streams */
 	private AssetManager assetManager;
 	
 	/**
 	 * @param mainActivity
-	 * @description private constructor following the Singleton Design Patter. 
+	 * Description: private constructor following the Singleton Design Patter. 
 	 * To get the instance of this class, is used getInstance method, it ensures that only one instance
 	 * will be create.
 	 */
-	private TextFileAccess(Activity mainActivity) {
+	private TextFileAccess() {
 		this.mainActivity = TopTrumpsActivity.activity;
 		this.assetManager = this.mainActivity.getAssets();
 	}
 	
 	
 	/**
-	 * @description getInstance 
+	 * Description: getInstance 
 	 * Returns the single TextFileAccess instance. (Singleton pattern)
 	 * 
 	 * @param Activity parent
 	 * @return TextFileAccess
 	 */
-	static TextFileAccess getInstance(Activity parent) {
+	static TextFileAccess getInstance() {
 		if(dataAccessor == null) {
-			dataAccessor = new TextFileAccess(parent);
+			dataAccessor = new TextFileAccess();
 		}
 		
 		return dataAccessor;
 	}
 	
 	/**
-	 * @description getCards
+	 * Description: getCards
 	 * Returns a list with all cards object for the game.
 	 * 
 	 * @return List<CardModel>
@@ -78,7 +76,7 @@ public class TextFileAccess {
 	}
 	
 	/**
-	 * @description getData
+	 * Description: getData
 	 * Private method which compiles the list of cards. Internally, this method uses a <code>Scanner</code> 
 	 * to read the file line-by-line and parses each line into a CardModel.
 	 * This method also uses <code>String</code> 'split' to read the file line-by-line. 
@@ -92,7 +90,6 @@ public class TextFileAccess {
 		
 		try {
 			
-			//TODO: Create cards.db
 			stream = assetManager.open("database/animal.db");
 			
 		} catch (IOException e) {

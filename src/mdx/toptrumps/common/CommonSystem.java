@@ -24,7 +24,7 @@ import mdx.toptrumps.service.UserServiceImpl;
 /**
  * @author martinellimi
  * 
- * @description CommonSystem.java 
+ * Description: CommonSystem.java 
  * This class creates a common space to objects that will be used until the game is closed.
  * These objects can be accessed from all other packages.
  * This class implements the Singleton Design Pattern
@@ -35,20 +35,28 @@ public final class CommonSystem {
 	
 	public static final Integer NUMBER_CARDS_PLAYER = 15;
 
+	/** Description: List that represents all the players in the game */
 	private List<UserModel> players;
 	
+	/** Description: List that represents all the cards in the game */
 	private List<CardAnimalModel> cards;
 	
+	/** Description: Computer player Object */
 	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> computer;
 	
+	/** Description: Player 1 Object */
 	private Map.Entry<UserModel, LinkedList<CardAnimalModel>> player1;
 	
+	/** Description: List that contains all the draw cards */
 	private LinkedList<CardAnimalModel> draw;
 	
+	/** Description: It says if the game is in a draw. If true, the game is in a draw and the rules need to be different */
 	private Boolean gameDraw;
 	
+	/** Description: Sets the player turn */
 	private UserModel playerTurn;
 	
+	/** Description: Winner player */
 	private UserModel winner;
 	
 	private static CommonSystem commonSystem;

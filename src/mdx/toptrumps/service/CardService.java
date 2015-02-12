@@ -10,7 +10,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 /**
  * @author martinellimi
  * 
- * @description CardService.java 
+ * Description: CardService.java 
  * This interface contains just one method to get the cards. 
  * 
  * @version version 1.0 27 Jan 2015
@@ -18,7 +18,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 public interface CardService {
 
 	/**
-	 * @description getCards
+	 * Description: getCards
 	 * Gets the cards from the CardDAO and returns the cards to play the game.
 	 * 
 	 * @param 

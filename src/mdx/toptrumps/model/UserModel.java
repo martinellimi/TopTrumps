@@ -5,22 +5,24 @@ package mdx.toptrumps.model;
 
 /**
  * @author martinellimi
- * @description UserModel.java - This class represents the User.
+ * Description: UserModel.java
+ * This class represents the User.
+ * 
  * @version version 1.0 27 Jan 2015
  */
 public class UserModel {
 
 	
-	/** @description User Id */
+	/** Description: User Id */
 	private Integer id;
 	
-	/** @description User name */
+	/** Description: User name */
 	private String name;
 	
-	/** @description User points in the game */
+	/** Description: User points in the game */
 	private Integer point;
 	
-	/** @description this attribute refers if the player is the computer or not */
+	/** Description: this attribute refers if the player is the computer or not */
 	private Boolean computer;
 	
 	// Getters and setters

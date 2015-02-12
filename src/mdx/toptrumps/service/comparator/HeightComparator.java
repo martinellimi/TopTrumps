@@ -10,7 +10,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 /**
  * @author martinellimi
  * 
- * @description heightComparator.java 
+ * Description: heightComparator.java 
  * Custom comparator class based on the <i>height rating</i> of the 
  * CardModel object. This class follows the Singleton Design Pattern.
  * 
@@ -18,7 +18,7 @@ import mdx.toptrumps.model.CardAnimalModel;
  */
 public class HeightComparator implements Comparator<CardAnimalModel> {
 
-	/** @description Reference to the comparator object */
+	/** Description: Reference to the comparator object */
 	private static HeightComparator heightComparator;
 	
 	/** Private constructor following Singleton pattern, 
@@ -27,7 +27,7 @@ public class HeightComparator implements Comparator<CardAnimalModel> {
 	private HeightComparator() { } 
 	
 	/**
-	 * @description getInstance
+	 * Description: getInstance
 	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 

@@ -5,7 +5,6 @@ package mdx.toptrumps.service;
 
 import java.util.List;
 
-import android.app.Activity;
 import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.model.CardAnimalModel;
 import mdx.toptrumps.model.dao.CardDAO;
@@ -14,7 +13,7 @@ import mdx.toptrumps.model.dao.CardDAOImpl;
 /**
  * @author martinellimi
  * 
- * @description CardServiceImpl.java 
+ * Description: CardServiceImpl.java 
  * Implements the <code>CardService</code> Interface and main role is control 
  * the activities related to the playing Cards.
  * 
@@ -30,15 +29,12 @@ public class CardServiceImpl implements CardService {
 	 * 
 	 * @param activity
 	 */
-	public CardServiceImpl(Activity activity) {
-		cardDAO = new CardDAOImpl(activity);
-	}
-	
 	public CardServiceImpl() {
+		cardDAO = new CardDAOImpl();
 	}
 	
 	/**
-	 * @description getCards
+	 * Description: getCards
 	 * Gets the cards from the CardDAO and returns the cards to play the game.
 	 * 
 	 * @return List<CardModel>

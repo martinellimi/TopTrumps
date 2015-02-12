@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 /**
  * @author martinellimi
  * 
- * @description Card.java 
- * class description
+ * Description: Card.java 
+ * This class has generic attributes that is used for a card. All the other cards classes should extend on this class.
  * 
  * @version version 1.0 30 Jan 2015
  */

@@ -6,8 +6,8 @@ package mdx.toptrumps.model;
 /**
  * @author martinellimi
  * 
- * @description AnimalAttribute.java 
- * class description
+ * Description: AnimalAttribute.java 
+ * Represents the attribute for the animal card. Has one attribute and the respective value.
  * 
  * @version version 1.0 30 Jan 2015
  */

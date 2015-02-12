@@ -10,7 +10,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 /**
  * @author martinellimi
  * 
- * @description weightComparator.java 
+ * Description: weightComparator.java 
  * Custom comparator class based on the <i>weight rating</i> of the 
  * CardAnimalModel object. This class follows the Singleton Design Pattern.
  * 
@@ -18,7 +18,7 @@ import mdx.toptrumps.model.CardAnimalModel;
  */
 public class WeightComparator implements Comparator<CardAnimalModel> {
 
-	/** @description Reference to the comparator object */
+	/** Description: Reference to the comparator object */
 	private static WeightComparator weightComparator;
 	
 	/** Private constructor following Singleton pattern, 
@@ -27,7 +27,7 @@ public class WeightComparator implements Comparator<CardAnimalModel> {
 	private WeightComparator() { } 
 	
 	/**
-	 * @description getInstance
+	 * Description: getInstance
 	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 

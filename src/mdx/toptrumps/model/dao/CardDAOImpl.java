@@ -13,7 +13,7 @@ import android.app.Activity;
 /**
  * @author martinellimi
  * 
- * @description CardDAOImpl.java 
+ * Description: CardDAOImpl.java 
  * An intermediate class that essentially provides an implementation of the
  * <code>CardDAO</code> interface.
  * 
@@ -21,7 +21,7 @@ import android.app.Activity;
  */
 public class CardDAOImpl implements CardDAO {
 
-	/** @description References the <code>TextFileAccess</code> object. */
+	/** Description: References the <code>TextFileAccess</code> object. */
 	private TextFileAccess dataAccess = null;
 	
 	
@@ -31,12 +31,12 @@ public class CardDAOImpl implements CardDAO {
 	 * 
 	 * @param activity
 	 */
-	public CardDAOImpl(Activity activity) {
-		dataAccess = TextFileAccess.getInstance(activity);
+	public CardDAOImpl() {
+		dataAccess = TextFileAccess.getInstance();
 	}
 	
 	/**
-	 * @description getCards
+	 * Description: getCards
 	 * Gets all the cards for the game and returns a populated list with <code>CardModel</code> objects.
 	 * Delegates this function to the <code>TextFileAccess</code> which has a package-protected visibility.
 	 * 

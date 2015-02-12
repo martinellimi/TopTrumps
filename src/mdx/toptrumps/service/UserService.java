@@ -10,7 +10,7 @@ import mdx.toptrumps.model.UserModel;
 /**
  * @author martinellimi
  * 
- * @description UserService.java 
+ * Description: UserService.java 
  * This interface contains methods to manipulate <code>UserModel</code> objects. 
  * 
  * @version version 1.0 27 Jan 2015
@@ -19,25 +19,7 @@ public interface UserService {
 
 	
 	/**
-	 * @description getUsers
-	 * Returns all the game players.
-	 * 
-	 * @return List<UserModel>
-	 */
-	public List<UserModel> getUsers();
-	
-	
-	/**
-	 * @description getUserPoints
-	 * Returns the points of the player that was received as parameter in the method.
-	 * 
-	 * @param UserModel user
-	 * @return Integer
-	 */
-	public Integer getUserPoints(UserModel user);
-	
-	/**
-	 * @description setWinner
+	 * Description: setWinner
 	 * Set the points for the winner and takes loser's points.
 	 * 
 	 * @param UserModel user
@@ -47,7 +29,7 @@ public interface UserService {
 	
 	
 	/**
-	 * @description createUser
+	 * Description: createUser
 	 * Creates the user with the name received as a parameter.
 	 * 
 	 * @param 

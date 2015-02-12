@@ -10,7 +10,7 @@ import mdx.toptrumps.model.CardAnimalModel;
 /**
  * @author martinellimi
  * 
- * @description killer InstinctComparator.java 
+ * Description: killer InstinctComparator.java 
  * Custom comparator class based on the <i>killer Instinct rating</i> of the 
  * CardModel object. This class follows the Singleton Design Pattern.
  * 
@@ -18,7 +18,7 @@ import mdx.toptrumps.model.CardAnimalModel;
  */
 public class KillerInstinctComparator implements Comparator<CardAnimalModel> {
 
-	/** @description Reference to the comparator object */
+	/** Description: Reference to the comparator object */
 	private static KillerInstinctComparator killerInstinctComparator;
 	
 	/** Private constructor following Singleton pattern, 
@@ -27,7 +27,7 @@ public class KillerInstinctComparator implements Comparator<CardAnimalModel> {
 	private KillerInstinctComparator() { } 
 	
 	/**
-	 * @description getInstance
+	 * Description: getInstance
 	 * Returns the Singleton instance of this comparator.
 	 * 
 	 * @param 

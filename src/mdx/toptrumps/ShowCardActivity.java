@@ -21,8 +21,8 @@ import android.widget.TextView;
 /**
  * @author martinellimi
  * 
- * @description ShowCardActivity.java 
- * class description
+ * Description: ShowCardActivity.java 
+ * Controls the screen that display the cards in the screen, when the move is complete.
  * 
  * @version version 1.0 1 Feb 2015
  */
@@ -30,6 +30,12 @@ public class ShowCardActivity extends Activity {
 	
 	private GameService gameService = new GameServiceImpl();
 	
+	/**
+	 * Description: onBackPressed 
+	 * OnBackPressed is used to start the TopTrumpsActivity and reinitialize the game when the return button is pressed.
+	 * 
+	 * @return void
+	 */
 	@Override
 	public void onBackPressed() {
 	    Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
@@ -37,6 +43,14 @@ public class ShowCardActivity extends Activity {
 	    startActivity(intent);
 	}
 	
+	/**
+	 * Description: onCreate 
+	 * OnCreate method is used to set the content view to the show cards screen which displays the cards for the player. 
+	 * Calls the method to set up the screen and the values and also check if the game is finished to display the End Activity.
+	 * 
+	 * @param Bundle savedInstanceState
+	 * @return void
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,7 +85,13 @@ public class ShowCardActivity extends Activity {
 
 	}
 	
-	
+	/**
+	 * Description: setUpAndroidCards 
+	 * Sets up the Android cards, the values for this card.
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
 	private void setUpAndroidCards(CardAnimalModel card) {
 
 		UserModel user = CommonSystem.getInstance().getPlayer1().getKey();
@@ -110,6 +130,13 @@ public class ShowCardActivity extends Activity {
 				.toString());
 	}
 	
+	/**
+	 * Description: setUpWinner 
+	 * Sets up the winner if the game is not in a draw. Sets the images.
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
 	private void setUpWinner() {
 		UserModel winner = CommonSystem.getInstance().getPlayerTurn();
 		if(!CommonSystem.getInstance().isGameDraw()) {
@@ -126,12 +153,22 @@ public class ShowCardActivity extends Activity {
 				computer.setVisibility(View.INVISIBLE);
 				computer.invalidate();
 			}
+		} else {
+			ImageView image = (ImageView)findViewById(R.id.userWin);
+			image.setVisibility(View.INVISIBLE);
+			ImageView computer = (ImageView)findViewById(R.id.androidWin);
+			computer.setVisibility(View.INVISIBLE);
 		}
 	}
 	
+	/**
+	 * Description: setUpUserCards 
+	 * Sets up the values for the user card.
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
 	private void setUpUserCards(CardAnimalModel card) {
-
-		
 		ImageView cardImg = (ImageView)findViewById(R.id.imgCardUser);
 		cardImg.setImageBitmap(card.getImage());
 		
@@ -158,11 +195,4 @@ public class ShowCardActivity extends Activity {
 		btnUserweight.setText(card.getWeight().getValue()
 				.toString());
 	}
-	
-	//@Override
-	//public void finish() {
-	//	Intent playAgain = new Intent(ShowCardActivity.this, TopTrumpsActivity.class);
-    //	startActivityForResult(playAgain, 1);
-	//}
-	
 }

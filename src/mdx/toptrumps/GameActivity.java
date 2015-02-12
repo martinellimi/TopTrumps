@@ -21,16 +21,34 @@ import android.widget.*;
 /**
  * @author martinellimi
  * 
- * @description GameActivity.java class description
+ * Description: GameActivity.java 
+ * This Activity controls the entire game activities. It sets up the screen for the user to play.  
  * 
  * @version version 1.0 30 Jan 2015
  */
 public class GameActivity extends Activity {
-
+	
+	/** Description: This is the gameService object, used to call methods inside the Game Service */
 	private GameService gameService = new GameServiceImpl();
 	
-	UserModel winner;
+	/**
+	 * Description: computerMove 
+	 * Calls the gameService method that represents the computer player and select one of the attributes to play against. 
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
+	public void computerMove() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		CardAnimalAttribute attribute = gameService.computerMove(CommonSystem.getInstance().getComputer().getValue().getFirst());
+		this.evaluateMove(attribute);
+	}
 	
+	/**
+	 * Description: onBackPressed 
+	 * OnBackPressed is used to start the TopTrumpsActivity and reinitialize the game when the return button is pressed.
+	 * 
+	 * @return void
+	 */
 	@Override
 	public void onBackPressed() {
 	    Intent intent = new Intent(getApplicationContext(), TopTrumpsActivity.class);
@@ -38,7 +56,15 @@ public class GameActivity extends Activity {
 	    startActivity(intent);
 	}
 	
-	
+	/**
+	 * Description: onCreate 
+	 * OnCreate method is used to set the content view to the main screen which displays the player card 
+	 * Calls the method to set up the screen and the values and also check if it is the computer turn to play and
+	 * after 3 seconds, starts the computerMove method.
+	 * 
+	 * @param Bundle savedInstanceState
+	 * @return void
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -53,7 +79,7 @@ public class GameActivity extends Activity {
 		        @Override
 		        public void run() {
 	    			try {
-	    				computeMove();
+	    				computerMove();
 	    			} catch (IllegalAccessException e) {
 	    				e.printStackTrace();
 	    			} catch (IllegalArgumentException e) {
@@ -68,6 +94,13 @@ public class GameActivity extends Activity {
 		
 	}
 
+	/**
+	 * Description: setUpScreen 
+	 * Sets up the screen for the player. Sets the points and name and calls the method 
+	 * to set up card information in the screen.
+	 * 
+	 * @return void
+	 */
 	private void setUpScreen() {
 		setContentView(R.layout.mainview);
 		
@@ -81,17 +114,16 @@ public class GameActivity extends Activity {
 		TextView player = (TextView)findViewById(R.id.player);
 		player.setText(CommonSystem.getInstance().getPlayerTurn().getName());
 
-		setUpCardForTheMove();
-	}
-
-	private void setUpCardForTheMove() {
-		setUpdCardView();
-	}
-
-	private void setUpdCardView() {
 		setUpUserCards(CommonSystem.getInstance().getPlayer1().getValue().getFirst());
 	}
-
+	
+	/**
+	 * Description: setUpUserCards 
+	 * Set up the values for the player card. Receiving the player card, set the values on the screen for the player.
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
 	private void setUpUserCards(CardAnimalModel card) {
 		
 		ImageView cardImg = (ImageView)findViewById(R.id.imgCardUser);
@@ -118,41 +150,16 @@ public class GameActivity extends Activity {
 		
 	}
 
-	private void setUpAndroidCards(CardAnimalModel card) {
-
-		UserModel user = CommonSystem.getInstance().getPlayer1().getKey();
-
-		TextView userPoint = (TextView) findViewById(R.id.scoreUser);
-		userPoint.setText(user.getPoint().toString());
-		userPoint.invalidate();
-		TextView androidPoint = (TextView) findViewById(R.id.scoreAndroid);
-		androidPoint.setText(CommonSystem.getInstance().getComputer().getKey()
-				.getPoint().toString());
-		
-		
-		ImageView cardImg = (ImageView)findViewById(R.id.imgCardAndroid);
-		cardImg.setImageBitmap(card.getImage());
-		
-		TextView cardName = (TextView) findViewById(R.id.cardNameAndroid);
-		cardName.setText(card.getName());
-
-		Button btnHeight = (Button) findViewById(R.id.androidheight);
-		setButton(btnHeight, card.getHeight().getValue().toString());
-
-		Button btnUserkillerinstinct = (Button) findViewById(R.id.androidkillerinstinct);
-		setButton(btnUserkillerinstinct, card.getKillerInstinct().getValue()
-				.toString());
-
-		Button btnUserlength = (Button) findViewById(R.id.androidlength);
-		setButton(btnUserlength, card.getLength().getValue().toString());
-
-		Button btnUserspeed = (Button) findViewById(R.id.androidspeed);
-		setButton(btnUserspeed, card.getSpeed().getValue().toString());
-
-		Button btnUserweight = (Button) findViewById(R.id.androidweight);
-		setButton(btnUserweight, card.getWeight().getValue().toString());
-	}
-
+	/**
+	 * Description: setButton 
+	 * To do not repeat this code, this method is used to set the event listener in each button and also 
+	 * calls the evalueteMove method sending the parameter that was chose on the screen, if the player is not
+	 * the computer, if the user is not the computer, just disabled the button, to not allow user to click on it when
+	 * it is not his turn to play.
+	 * 
+	 * @param CardAnimalModel card
+	 * @return void
+	 */
 	private void setButton(Button btn, String text) {
 		btn.setText(text);
 		if(!CommonSystem.getInstance().getPlayerTurn().isComputer() == true) {
@@ -191,57 +198,22 @@ public class GameActivity extends Activity {
 		}
 	}
 
-	public void computeMove() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		CardAnimalAttribute attribute = gameService.computerMove(CommonSystem.getInstance().getComputer().getValue().getFirst());
-		this.evaluateMove(attribute);
-	}
-	
+	/**
+	 * Description: evaluateMove 
+	 * Evaluates the move, receiving the Attribute that was chosen and starts the ShowCardActivity, sending the attribute.  
+	 * 
+	 * @param CardAnimalAttribute attr
+	 * @return void
+	 */
 	private void evaluateMove(CardAnimalAttribute attr) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		winner = gameService.evaluateMove(attr);
+		gameService.evaluateMove(attr);
 
-		
 		Intent start = new Intent(GameActivity.this, ShowCardActivity.class);
-		
-
 		Bundle args = new Bundle();
 		args.putSerializable("attribute", attr);
 		
-//		start.putExtra("attribute", attr);
-
-//		b.putInt("attribute", attr); //Your id
-		start.putExtras(args); //Put your id to your next Intent
+		start.putExtras(args); 
 		
 		startActivity(start);
-		
-//		setContentView(R.layout.showcards);
-//		
-//		if(winner.isComputer() == true) {
-//			ImageView image = (ImageView)findViewById(R.id.userWin);
-//			image.setVisibility(0);
-//			ImageView computer = (ImageView)findViewById(R.id.androidWin);
-//			computer.setVisibility(1);
-//			computer.invalidate();
-//		} else {
-//			ImageView image = (ImageView)findViewById(R.id.userWin);
-//			image.setVisibility(1);
-//			ImageView computer = (ImageView)findViewById(R.id.androidWin);
-//			computer.setVisibility(0);
-//			computer.invalidate();
-//		}
-//		
-//		setUpAndroidCards(CommonSystem.getInstance().getComputer().getValue().getFirst());
-//		setUpUserCards(CommonSystem.getInstance().getPlayer1().getValue().getFirst());
-//		
-//		new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//            	gameService.setWinner(winner);
-//        		setUpScreen();
-//            }
-//        }, 5000);
-		
-		
-		
-		
 	}
 }

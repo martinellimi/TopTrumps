@@ -6,35 +6,29 @@ package mdx.toptrumps.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
-import android.app.Activity;
 import mdx.toptrumps.common.CommonSystem;
 import mdx.toptrumps.model.AnimalAttribute;
-import mdx.toptrumps.model.Attribute;
 import mdx.toptrumps.model.CardAnimalAttribute;
 import mdx.toptrumps.model.CardAnimalModel;
-import mdx.toptrumps.model.CardAttributeType;
 import mdx.toptrumps.model.UserModel;
 import mdx.toptrumps.service.comparator.HeightComparator;
 import mdx.toptrumps.service.comparator.KillerInstinctComparator;
 import mdx.toptrumps.service.comparator.LengthComparator;
 import mdx.toptrumps.service.comparator.SpeedComparator;
 import mdx.toptrumps.service.comparator.WeightComparator;
+import android.app.Activity;
 
 /**
  * @author martinellimi
  * 
- * @description GameServiceImpl.java 
+ * Description: GameServiceImpl.java 
  * Implements the <code>GameService</code> Interface. 
  * This class is responsible to control all the game actions.
  * 
@@ -42,19 +36,11 @@ import mdx.toptrumps.service.comparator.WeightComparator;
  */
 public class GameServiceImpl implements GameService {
 
-	/** @description Reference to the <code>CardService</code> to use methods to manipulate Card object */
+	/** Description: Reference to the <code>CardService</code> to use methods to manipulate Card object */
 	private CardService cardService;
 	
-	/** @description Reference to the <code>UserService</code> to use methods to manipulate User object*/
+	/** Description: Reference to the <code>UserService</code> to use methods to manipulate User object*/
 	private UserService userService;
-	
-	/** @description List that contains the players for the game. */
-	private List<UserModel> users;
-	
-	public GameServiceImpl(Activity activity) {
-		cardService = new CardServiceImpl(activity);
-		userService = new UserServiceImpl();
-	}
 	
 	public GameServiceImpl() {
 		cardService = new CardServiceImpl();
@@ -62,53 +48,18 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	/**
-	 * @description distributeCardsRandom
-	 * Distributes the cards randomly.
+	 * Description: startGame
+	 * Calls the <code>UserService</code> to set the winner.
 	 * 
-	 * @return List<CardModel>
-	 * TODO: Implement this method
+	 * @param UserModel user
+	 * @see GameService#setWinner()
 	 */
-	private void distributeCardsRandom() {
-		List<CardAnimalModel> shuffledList = CommonSystem.getInstance().getCards();
-		Collections.shuffle(shuffledList);
-		
-		int start = 0;
-		
-		for (UserModel player : CommonSystem.getInstance().getPlayers()) {
-			int cardLimit = start + CommonSystem.NUMBER_CARDS_PLAYER;
-			
-			LinkedList<CardAnimalModel> cards = new LinkedList<CardAnimalModel>();
-			
-			for (int i = start; i < cardLimit; i++) {
-				cards.add(shuffledList.get(i));
-			}
-			if(player.isComputer() == true) {
-				CommonSystem.getInstance().getComputer().setValue(cards);
-			} else {
-				CommonSystem.getInstance().getPlayer1().setValue(cards);
-			}
-			start = cardLimit;
-		}
-	}
-
-	/**
-	 * @description chooseFirstUser
-	 * Chooses the first player to start the game.
-	 * 
-	 * @return UserModel
-	 * TODO: Implements this method
-	 */
-	private void chooseFirstUser() {
-		
-		Random random = new Random();
-		
-		UserModel user = CommonSystem.getInstance().getPlayers().get(random.nextInt(CommonSystem.getInstance().getPlayers().size()));
-		
-		CommonSystem.getInstance().setPlayerTurn(user);
+	public void setWinner(UserModel user) {
+		userService.setWinner(user);
 	}
 	
 	/**
-	 * @description startGame
+	 * Description: startGame
 	 * Simply starts the game returning the list with all the cards 
 	 * and setting up the players.
 	 * 
@@ -130,7 +81,7 @@ public class GameServiceImpl implements GameService {
 	}
 
 	/**
-	 * @description evaluateMove
+	 * Description: evaluateMove
 	 * Evaluates the move, using comparable to compare the players cards, 
 	 * deciding the winner and the loser and the next player to start the move.
 	 * 
@@ -186,7 +137,7 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	/**
-	 * @description computerMove
+	 * Description: computerMove
 	 * Decides which attribute the computer will 'play' against the other player 
 	 * and returns this attribute.
 	 * Receives the Computer card and computes the probability to win the move with each
@@ -228,7 +179,7 @@ public class GameServiceImpl implements GameService {
 	
 	
 	/**
-	 * @description getAttribute
+	 * Description: getAttribute
 	 * Returns the getter method attribute on the CardModel which is equal to the <code>CardAttributeType</code>
 	 * Using Reflection, the method invokes the getter method which has the same name as the <code>CardAttributeType</code>
 	 * and returns the value that the getter method returns.
@@ -259,7 +210,7 @@ public class GameServiceImpl implements GameService {
 	}
 	
 	/**
-	 * @description calculateProbability
+	 * Description: calculateProbability
 	 * Calculates the probability to win the move using this card attribute. 
 	 * It receives the number of cards which has the attribute value smaller than the computer card
 	 * and receives the total cards in the game and divides the number of cards for the total cards in the game
@@ -277,7 +228,50 @@ public class GameServiceImpl implements GameService {
 		return result;
 	}
 	
-	public void setWinner(UserModel user) {
-		userService.setWinner(user);
+	/**
+	 * Description: distributeCardsRandom
+	 * Distributes the cards randomly.
+	 * 
+	 * @return List<CardModel>
+	 * TODO: Implement this method
+	 */
+	private void distributeCardsRandom() {
+		List<CardAnimalModel> shuffledList = CommonSystem.getInstance().getCards();
+		Collections.shuffle(shuffledList);
+		
+		int start = 0;
+		
+		for (UserModel player : CommonSystem.getInstance().getPlayers()) {
+			int cardLimit = start + CommonSystem.NUMBER_CARDS_PLAYER;
+			
+			LinkedList<CardAnimalModel> cards = new LinkedList<CardAnimalModel>();
+			
+			for (int i = start; i < cardLimit; i++) {
+				cards.add(shuffledList.get(i));
+			}
+			if(player.isComputer() == true) {
+				CommonSystem.getInstance().getComputer().setValue(cards);
+			} else {
+				CommonSystem.getInstance().getPlayer1().setValue(cards);
+			}
+			start = cardLimit;
+		}
 	}
+
+	/**
+	 * Description: chooseFirstUser
+	 * Chooses the first player to start the game.
+	 * 
+	 * @return UserModel
+	 * TODO: Implements this method
+	 */
+	private void chooseFirstUser() {
+		
+		Random random = new Random();
+		
+		UserModel user = CommonSystem.getInstance().getPlayers().get(random.nextInt(CommonSystem.getInstance().getPlayers().size()));
+		
+		CommonSystem.getInstance().setPlayerTurn(user);
+	}
+	
 }

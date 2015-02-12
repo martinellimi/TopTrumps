@@ -17,30 +17,43 @@ import android.widget.Button;
 
 /**
  * @author martinellimi
- * @description TopTrumpsActivity.java - This class is responsible for controlling the
- * Android Application.
+ * Description: TopTrumpsActivity.java
+ * This class is responsible for controlling the Android Application.
+ * 
  * @version version 1.0 27 Jan 2015
  */
 public class TopTrumpsActivity extends Activity {
 	
 	public static Activity activity;
 	
-	/** @description Reference to the gameService */
+	/** Description: Reference to the gameService */
 	private GameService gameService;
 	
-	/** @description cards list */
+	/** Description: cards list */
 	public LinkedList<CardAnimalModel> cards;
 	
+	/**
+	 * Description: onResume 
+	 * onResume receives a parameter, and if it is exit, finished the application.
+	 * 
+	 * @param Bundle savedInstanceState
+	 * @return void
+	 */
 	@Override
 	protected void onResume(){
-		
 		super.onResume();
 		if (getIntent().getBooleanExtra("EXIT", false)) {
 		    finish();
 		}
 	}
 	
-	
+	/**
+	 * Description: onCreate 
+	 * OnCreate method is used to set the content view to the first screen and display the options to the user. 
+	 * 
+	 * @param Bundle savedInstanceState
+	 * @return void
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,7 +62,7 @@ public class TopTrumpsActivity extends Activity {
 		
 		setContentView(R.layout.intropage);
 		
-		gameService = new GameServiceImpl(activity);
+		gameService = new GameServiceImpl();
 		
 		gameService.startGame();
 		
@@ -60,17 +73,6 @@ public class TopTrumpsActivity extends Activity {
 				
 				Intent playgame = new Intent(TopTrumpsActivity.this, SelectPlayersActivity.class);
             	startActivityForResult(playgame, 1);
-				
-				
-				//setContentView(R.layout.selectplayers);
-				//
-				//Button btnStart = (Button) findViewById(R.id.playGame);
-				//btnStart.setOnClickListener(new View.OnClickListener() {
-				//	public void onClick(View v) {
-				//		Intent start = new Intent(TopTrumpsActivity.this, GameActivity.class);
-				//		startActivity(start);
-				//	}
-				//});
 			}
 		});
 		
@@ -78,7 +80,6 @@ public class TopTrumpsActivity extends Activity {
 		
 		btnHowPlay.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//setContentView(R.layout.howtoplay);
 				Intent howtoplay = new Intent(TopTrumpsActivity.this, HowPlayActivity.class);
             	startActivityForResult(howtoplay, 1);
 			}
